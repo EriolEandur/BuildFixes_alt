@@ -1,0 +1,25 @@
+name: BuildFixes
+main: com.dags.BuildFixes.BuildFixes
+version: 1.0
+
+commands:
+   logs:
+      description: Gives user stacks of 'special logs'
+      usage: /logs
+      permission: BuildFixes.logs
+      permission-message: Sorry, you don't have don't have permission
+   fix:
+      description: Admin commands
+      usage: /fix [help], [logs], [lamps], eggs]
+      permission: BuildFixes.admin
+      permission-message: Sorry, you don't have don't have permission
+permissions:
+  BuildFixes.admin:
+    description: Admin commands to enable/disable plugin features.
+    default: op  
+  BuildFixes.logs:
+    description: Allow user to use /logs and place 'special logs'.
+    default: op
+  BuildFixes.dragonegg:
+    description: Allow user to interact with Dragon Eggs.
+    default: op
