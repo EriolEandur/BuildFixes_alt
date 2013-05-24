@@ -1,12 +1,12 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.0
+version: 1.1
 
 commands:
-   logs:
+   get:
       description: Gives user stacks of 'special logs'
-      usage: /logs
-      permission: BuildFixes.logs
+      usage: /get <block type> [damage]
+      permission: BuildFixes.get
       permission-message: Sorry, you don't have don't have permission
    fix:
       description: Admin commands
@@ -17,9 +17,24 @@ permissions:
   BuildFixes.admin:
     description: Admin commands to enable/disable plugin features.
     default: op  
-  BuildFixes.logs:
-    description: Allow user to use /logs and place 'special logs'.
+  BuildFixes.get:
+    description: Allow user to use /get.
     default: op
-  BuildFixes.dragonegg:
+  BuildFixes.doors:
+    description: Allow user to give themselves and place wood/iron half-doors.
+    default: op
+  BuildFixes.eggs:
+    description: Allow user to give themselves a dragon egg.
+    default: op
+  BuildFixes.furnace:
+    description: Allow user to give themselves a burning furnace.
+    default: op
+  BuildFixes.logs:
+    description: Allow user to give themselves a stack of each 'special log' type.
+    default: op
+  BuildFixes.slabs:
+    description: Allow user to give themselves double slabs.
+    default: op
+  BuildFixes.eggBreak:
     description: Allow user to interact with Dragon Eggs.
     default: op

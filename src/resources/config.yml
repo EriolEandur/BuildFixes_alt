@@ -1,4 +1,17 @@
 Settings:
+  HalfDoors: true
+  NoPhysics: true
   SpecialLogs: true
   PlaceLamps: true
   DragonEggBlocking: true
+NoPhysicsList:
+  - 27
+  - 28
+  - 34
+  - 50
+  - 64
+  - 65
+  - 71
+  - 76
+  - 122
+  - 157
