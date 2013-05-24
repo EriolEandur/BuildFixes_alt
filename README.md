@@ -2,8 +2,9 @@ BuildFixes
 ==========
 Minecraft building tweaks and fixes!<br/>
 <br/>
-BuildFixes alters a number of mechanics (such as physics) to allow it's users to build more creatively 
-and naturally with blocks that could previously only be used via plugins like Voxel Sniper or WorldEdit!
+<i>BuildFixes alters a number of mechanics (such as physics) to allow it's users to build more creatively 
+and naturally with blocks that could previously only be used via plugins like Voxel Sniper or WorldEdit!</i><br/>
+<br/>
 
 Features:
 - Block dragon egg interactions!
@@ -15,18 +16,20 @@ Features:
 - Admin commands to configure plugin settings in-game<br/>
 - Restrict environmental effects such as weather, block decays/forms
 <br/>
+<br/>
 
 Commands:<br/>
 - <b>'/get [egg], [doors], [furnace], [logs], [slabs #0-15]'</b> - gives user the various type of special blocks
 - <b>'/bfmodules [buildfixes], [commands], [environment]'</b> - enables/disables plugin features<br/>
 <br/>
 
+
 Permissions:<br/>
 - <b>'BuildFixes.get'</b> - allows user to use the /get command
-  - 'BuildFixes.doors' - allows user to /get half-door blocks and place them
-  - 'BuildFixes.eggs' - allows user to /get a dragon egg
-  - 'BuildFixes.furnace' - allows user to /get a lit furnace
-  - 'BuildFixes.logs' - allows user to /get 'special logs'
-  - 'BuildFixes.slabs' - allows user to /get double slabs (#0-15)
+  - <b>'BuildFixes.doors'</b> - allows user to /get half-door blocks and place them
+  - <b>'BuildFixes.eggs'</b> - allows user to /get a dragon egg
+  - <b>'BuildFixes.furnace'</b> - allows user to /get a lit furnace
+  - <b>'BuildFixes.logs'</b> - allows user to /get 'special logs'
+  - <b>'BuildFixes.slabs'</b> - allows user to /get double slabs (#0-15)
 - <b>'BuildFixes.eggBreak'</b> - allows user to break and interact with dragon eggs
 - <b>'BuildFixes.admin'</b> - allows admin to enable/disable plugin features
