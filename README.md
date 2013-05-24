@@ -2,7 +2,7 @@ BuildFixes
 ==========
 Minecraft building tweaks and fixes!<br/>
 <br/>
-Buildfixes alters a number of mechanics (such as physics) to allow it's users to build more creatively 
+BuildFixes alters a number of mechanics (such as physics) to allow it's users to build more creatively 
 and naturally with blocks that could, previously, only be used via plugins like Voxel Sniper or WorldEdit!
 
 Features:
