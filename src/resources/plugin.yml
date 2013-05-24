@@ -1,6 +1,6 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.1
+version: 1.2
 
 commands:
    get:
@@ -8,9 +8,9 @@ commands:
       usage: /get <block type> [damage]
       permission: BuildFixes.get
       permission-message: Sorry, you don't have don't have permission
-   fix:
-      description: Admin commands
-      usage: /fix [help], [logs], [lamps], eggs]
+   bfmodules:
+      description: Enable/disable modules 
+      usage: /bfmodules [buildfixes], [commands], [environment]
       permission: BuildFixes.admin
       permission-message: Sorry, you don't have don't have permission
 permissions:

@@ -20,7 +20,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class EventListener implements Listener{
+public class BlockListener implements Listener{
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	private void playerInteract(PlayerInteractEvent event) {
