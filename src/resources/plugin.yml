@@ -1,6 +1,6 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.2
+version: 1.2.1
 
 commands:
    get:

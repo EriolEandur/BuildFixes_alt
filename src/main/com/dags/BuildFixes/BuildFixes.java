@@ -49,28 +49,31 @@ public class BuildFixes extends JavaPlugin {
     	fixesModule = getConfig().getBoolean("Modules.BuildFixes.Enable");
     	commandsModule = getConfig().getBoolean("Modules.Commands.Enable");
     	environmentModule = getConfig().getBoolean("Modules.Environment.Enable");
+    	
+    	doors = getConfig().getBoolean("Modules.BuildFixes.HalfDoors");
+    	logs = getConfig().getBoolean("Modules.BuildFixes.SpecialLogs");
+    	lamps = getConfig().getBoolean("Modules.BuildFixes.PlaceLamps");
+    	noPhysics = getConfig().getBoolean("Modules.BuildFixes.NoPhysics");
+    	eggBreak = getConfig().getBoolean("Modules.BuildFixes.DragonEggBlocking");
+    	
+    	getCMD = getConfig().getBoolean("Modules.Commands.GetItem");
+    	
+    	weatherBlock = getConfig().getBoolean("Modules.Environment.WeatherBlocking");
+		decayBlock = getConfig().getBoolean("Modules.Environment.DecayBlocking");
+		formBlock = getConfig().getBoolean("Modules.Environment.FormBlocking");
     	setupModules();
     }
     
     public void setupModules() {
     	if(fixesModule){
     		this.getServer().getPluginManager().registerEvents(new BlockListener(), this);
-    		doors = getConfig().getBoolean("Modules.BuildFixes.HalfDoors");
-        	logs = getConfig().getBoolean("Modules.BuildFixes.SpecialLogs");
-        	lamps = getConfig().getBoolean("Modules.BuildFixes.PlaceLamps");
-        	noPhysics = getConfig().getBoolean("Modules.BuildFixes.NoPhysics");
-        	eggBreak = getConfig().getBoolean("Modules.BuildFixes.DragonEggBlocking");
         	setupNoPhysList();
     	}
     	if(commandsModule){
     		getCommand("get").setExecutor(new Commands());
-    		getCMD = getConfig().getBoolean("Modules.Commands.GetItem");
     	}
     	if(environmentModule){
     		this.getServer().getPluginManager().registerEvents(new EnvironmentListener(), this);
-    		weatherBlock = getConfig().getBoolean("Modules.Environment.weatherBlock");
-    		decayBlock = getConfig().getBoolean("Modules.Environment.decayBlock");
-    		formBlock = getConfig().getBoolean("Modules.Environment.formBlock");
     	}
     }
     
