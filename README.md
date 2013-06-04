@@ -19,7 +19,7 @@ Features:
 <br/>
 
 Commands:<br/>
-- <b>'/get [egg], [doors], [furnace], [logs], [slabs #0-15]'</b> - gives user the various type of special blocks
+- <b>'/get [egg], [doors], [furnace], [logs], [lamps], [slabs #0-15]'</b> - gives user the various type of special blocks
 - <b>'/bfmodules [buildfixes], [commands], [environment]'</b> - enables/disables plugin features<br/>
 <br/>
 
@@ -30,6 +30,7 @@ Permissions:<br/>
   - <b>'BuildFixes.eggs'</b> - allows user to /get a dragon egg
   - <b>'BuildFixes.furnace'</b> - allows user to /get a lit furnace
   - <b>'BuildFixes.logs'</b> - allows user to /get 'special logs'
+  - <b>'BuildFixes.lamps'</b> - allows user to /get powered redstone lamps
   - <b>'BuildFixes.slabs'</b> - allows user to /get double slabs (#0-15)
-- <b>'BuildFixes.eggBreak'</b> - allows user to break and interact with dragon eggs
+- <b>'BuildFixes.eggInteract'</b> - allows user to interact with dragon eggs
 - <b>'BuildFixes.admin'</b> - allows admin to enable/disable plugin features
