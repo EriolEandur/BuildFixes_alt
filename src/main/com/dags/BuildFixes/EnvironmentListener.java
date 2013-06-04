@@ -15,49 +15,55 @@ import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-public class EnvironmentListener implements Listener{
-	
+public class EnvironmentListener implements Listener {
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onWeatherChange(WeatherChangeEvent event){
-		if(weatherBlock){
-			if(event.toWeatherState()){
+	private void onWeatherChange(WeatherChangeEvent event) {
+		if (weatherBlock) {
+			if (event.toWeatherState()) {
 				event.setCancelled(true);
 			}
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onBlockBurn(BlockBurnEvent event){
-		if(decayBlock){
+	private void onBlockBurn(BlockBurnEvent event) {
+		if (decayBlock) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onBlockFade(BlockFadeEvent event){
-		if(decayBlock){
+	private void onBlockFade(BlockFadeEvent event) {
+		if (decayBlock) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onLeavesDecay(LeavesDecayEvent event){
-		if(decayBlock){
+	private void onLeavesDecay(LeavesDecayEvent event) {
+		if (decayBlock) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onBlockForm(BlockFormEvent event){
-		if(formBlock){
+	private void onBlockForm(BlockFormEvent event) {
+		if (formBlock) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onBlockGrow(BlockGrowEvent event){
-		if(formBlock){
+	private void onBlockGrow(BlockGrowEvent event) {
+		if (formBlock) {
 			event.setCancelled(true);
 		}
 	}
+
 	@EventHandler(priority = EventPriority.HIGH)
-	private void onBlockSpread(BlockSpreadEvent event){
-		if(formBlock){
+	private void onBlockSpread(BlockSpreadEvent event) {
+		if (formBlock) {
 			event.setCancelled(true);
 		}
 	}

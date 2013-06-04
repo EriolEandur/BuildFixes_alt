@@ -1,6 +1,6 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.2.1
+version: 1.3.0
 
 commands:
    get:
@@ -32,9 +32,12 @@ permissions:
   BuildFixes.logs:
     description: Allow user to give themselves a stack of each 'special log' type.
     default: op
+  BuildFixes.lamps:
+    description: Allow user to give themselves a stack of powered redstone lamps.
+    default: op
   BuildFixes.slabs:
     description: Allow user to give themselves double slabs.
     default: op
-  BuildFixes.eggBreak:
+  BuildFixes.eggInteract:
     description: Allow user to interact with Dragon Eggs.
     default: op
