@@ -4,8 +4,8 @@ import static com.dags.BuildFixes.BuildFixes.doors;
 import static com.dags.BuildFixes.BuildFixes.eggBreak;
 import static com.dags.BuildFixes.BuildFixes.lamps;
 import static com.dags.BuildFixes.BuildFixes.logs;
-import static com.dags.BuildFixes.BuildFixes.noPhysics;
 import static com.dags.BuildFixes.BuildFixes.noPhysList;
+import static com.dags.BuildFixes.BuildFixes.noPhysics;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -65,7 +65,8 @@ public class BlockListener implements Listener {
 			int yaw = (int) player.getLocation().getYaw();
 			if (blockType == 64 || blockType == 71) {
 				// NORTH
-				if ((yaw >= -225 && yaw < -135) || (yaw >= 135 && yaw <= 180)) {
+				if ((yaw >= -225 && yaw < -135) 
+						|| (yaw >= 135 && yaw <= 225)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
 							(byte) 3, false);
@@ -73,7 +74,8 @@ public class BlockListener implements Listener {
 							.setTypeIdAndData(blockType, (byte) 3, false);
 				}
 				// EAST
-				else if (yaw >= -135 && yaw < -45) {
+				else if ((yaw >= -135 && yaw < -45)
+						|| (yaw >= 225 && yaw < 315)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
 							(byte) 0, false);
@@ -82,7 +84,8 @@ public class BlockListener implements Listener {
 				}
 				// SOUTH
 				else if ((yaw >= -45 && yaw < 45)
-						|| (yaw >= -360 && yaw < -315)) {
+						|| (yaw >= -360 && yaw < -315)
+						|| (yaw >= 315 && yaw <= 360)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
 							(byte) 1, false);
