@@ -4,7 +4,7 @@ Modules:
     DragonEggBlocking: true  
     HalfDoors: true
     NoPhysics: true
-    PlaceLamps: true
+    PlaceLamps: false
     SpecialLogs: true
   Commands:
     Enable: true
@@ -16,12 +16,11 @@ Modules:
     WeatherBlocking: true
 NoPhysicsList:
   - 9
+  - 11
   - 27
   - 28
   - 34
   - 50
-  - 64
   - 65
-  - 71
   - 122
   - 157

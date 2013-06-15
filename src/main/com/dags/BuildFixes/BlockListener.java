@@ -141,5 +141,11 @@ public class BlockListener implements Listener {
 				event.setCancelled(true);
 			}
 		}
+		if(doors){
+			if(event.getBlock().getTypeId() == 64
+					|| event.getBlock().getTypeId() == 71){
+				event.setCancelled(true);
+			}
+		}
 	}
 }

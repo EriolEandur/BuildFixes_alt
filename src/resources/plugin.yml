@@ -1,6 +1,6 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.3.1
+version: 1.4
 
 commands:
    get:
@@ -34,6 +34,9 @@ permissions:
     default: op
   BuildFixes.lamps:
     description: Allow user to give themselves a stack of powered redstone lamps.
+    default: op
+  BuildFixes.mushrooms:
+    description: Allow user to give themselves mushroom blocks.
     default: op
   BuildFixes.slabs:
     description: Allow user to give themselves double slabs.

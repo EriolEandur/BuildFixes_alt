@@ -67,6 +67,13 @@ public class Commands implements CommandExecutor {
 							new ItemStack(124, 64, (byte) 0));
 					return true;
 				}
+				if ((args[0].equalsIgnoreCase("mushrooms") || args[0]
+						.equalsIgnoreCase("mushroom"))
+						&& sender.hasPermission("BuildFixes.mushrooms")) {
+					player.getInventory().addItem(
+							new ItemStack(99, 64, (byte) 0));
+					return true;
+				}
 				if ((args[0].equalsIgnoreCase("slabs") || args[0]
 						.equalsIgnoreCase("slab"))
 						&& sender.hasPermission("BuildFixes.slabs")) {
