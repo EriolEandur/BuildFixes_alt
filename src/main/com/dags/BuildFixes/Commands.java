@@ -22,7 +22,7 @@ public class Commands implements CommandExecutor {
 					&& sender.hasPermission("BuildFixes.get") && getCMD) {
 				if (args.length == 0) {
 					player.sendMessage(ChatColor.GRAY
-							+ "/get [doors], [egg], [furnace], [logs], [lamps], [slabs #]");
+							+ "/get [doors], [egg], [furnace], [logs], [lamps], [mushrooms],[slabs #]");
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("egg")
