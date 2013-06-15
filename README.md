@@ -19,7 +19,7 @@ Features:
 <br/>
 
 Commands:<br/>
-- <b>'/get [egg], [doors], [furnace], [logs], [lamps], [slabs #0-15]'</b> - gives user the various type of special blocks
+- <b>'/get [egg], [doors], [furnace], [logs], [lamps], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
 - <b>'/bfmodules [buildfixes], [commands], [environment]'</b> - enables/disables plugin features<br/>
 <br/>
 
