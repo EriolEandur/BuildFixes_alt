@@ -12,14 +12,12 @@ Features:
 - Place 'special logs' (with tree-bark on all sides)
 - Add NoPhysics properties to any block ID!
 - Command to give user a variety of blocks that are otherwise missing from creative inventories
-- Admin commands to configure plugin settings in-game<br/>
 - Restrict environmental effects such as weather, block decays/forms
 <br/>
 <br/>
 
 Commands:<br/>
-- <b>'/get [egg], [doors], [furnace], [logs], [lamps], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
-- <b>'/bfmodules [buildfixes], [commands], [environment]'</b> - enables/disables plugin features<br/>
+- <b>'/get [egg], [doors], [furnace], [logs], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
 <br/>
 
 
