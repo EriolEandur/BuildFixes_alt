@@ -8,7 +8,6 @@ and naturally with blocks that could previously only be used via plugins like Vo
 
 Features:
 - Block dragon egg interactions!
-- Place powered redstone lamps (no need to leave unsightly levers etc on there!)
 - Place half-doors
 - Place 'special logs' (with tree-bark on all sides)
 - Add NoPhysics properties to any block ID!
@@ -30,7 +29,6 @@ Permissions:<br/>
   - <b>'BuildFixes.eggs'</b> - allows user to /get a dragon egg
   - <b>'BuildFixes.furnace'</b> - allows user to /get a lit furnace
   - <b>'BuildFixes.logs'</b> - allows user to /get 'special logs'
-  - <b>'BuildFixes.lamps'</b> - allows user to /get powered redstone lamps
+  - <b>'BuildFixes.mushroom'</b> - allows user to /get a mushroom block
   - <b>'BuildFixes.slabs'</b> - allows user to /get double slabs (#0-15)
 - <b>'BuildFixes.eggInteract'</b> - allows user to interact with dragon eggs
-- <b>'BuildFixes.admin'</b> - allows admin to enable/disable plugin features
