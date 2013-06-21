@@ -2,7 +2,6 @@ package com.dags.BuildFixes;
 
 import static com.dags.BuildFixes.BuildFixes.doors;
 import static com.dags.BuildFixes.BuildFixes.eggBreak;
-import static com.dags.BuildFixes.BuildFixes.lamps;
 import static com.dags.BuildFixes.BuildFixes.logs;
 import static com.dags.BuildFixes.BuildFixes.noPhysList;
 import static com.dags.BuildFixes.BuildFixes.noPhysics;
@@ -18,7 +17,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BlockListener implements Listener {
@@ -123,24 +121,16 @@ public class BlockListener implements Listener {
 		}
 	}
 
-	// PLACE POWERED RESTONE LAMPS
+	// NOPHYSICS HANDLER
 	@EventHandler(priority = EventPriority.HIGH)
-	private void lampPlace(BlockRedstoneEvent event) {
-		if (lamps
-				&& event.getBlock().getType().equals(Material.REDSTONE_LAMP_ON)) {
-			event.setNewCurrent(16);
-		}
-	}
-
-	// NOPHYSICS HANDLER FOR DRAGON EGGS AND HALF-DOORS
-	@EventHandler(priority = EventPriority.HIGH)
-	private void doorPlace(BlockPhysicsEvent event) {
+	private void noPhysPlace(BlockPhysicsEvent event) {
 		if (noPhysics) {
 			int npBlockType = event.getBlock().getTypeId();
 			if (noPhysList.contains(npBlockType)) {
 				event.setCancelled(true);
 			}
 		}
+		// NOPHYSICS HANDLER FOR HALF-DOORS
 		if(doors){
 			if(event.getBlock().getTypeId() == 64
 					|| event.getBlock().getTypeId() == 71){

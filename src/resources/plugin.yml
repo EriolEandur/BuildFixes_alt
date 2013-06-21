@@ -1,22 +1,14 @@
 name: BuildFixes
 main: com.dags.BuildFixes.BuildFixes
-version: 1.4
+version: 1.5
 
 commands:
    get:
       description: Gives user stacks of 'special logs'
-      usage: /get <block type> [damage]
+      usage: /get <item> [#damage]
       permission: BuildFixes.get
-      permission-message: Sorry, you don't have don't have permission
-   bfmodules:
-      description: Enable/disable modules 
-      usage: /bfmodules [buildfixes], [commands], [environment]
-      permission: BuildFixes.admin
-      permission-message: Sorry, you don't have don't have permission
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
-  BuildFixes.admin:
-    description: Admin commands to enable/disable plugin features.
-    default: op  
   BuildFixes.get:
     description: Allow user to use /get.
     default: op
@@ -31,9 +23,6 @@ permissions:
     default: op
   BuildFixes.logs:
     description: Allow user to give themselves a stack of each 'special log' type.
-    default: op
-  BuildFixes.lamps:
-    description: Allow user to give themselves a stack of powered redstone lamps.
     default: op
   BuildFixes.mushrooms:
     description: Allow user to give themselves mushroom blocks.
