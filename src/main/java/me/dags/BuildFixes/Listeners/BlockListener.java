@@ -1,10 +1,10 @@
-package com.dags.BuildFixes;
+package me.dags.BuildFixes.Listeners;
 
-import static com.dags.BuildFixes.BuildFixes.doors;
-import static com.dags.BuildFixes.BuildFixes.eggBreak;
-import static com.dags.BuildFixes.BuildFixes.logs;
-import static com.dags.BuildFixes.BuildFixes.noPhysList;
-import static com.dags.BuildFixes.BuildFixes.noPhysics;
+import static me.dags.BuildFixes.BuildFixes.doors;
+import static me.dags.BuildFixes.BuildFixes.eggBreak;
+import static me.dags.BuildFixes.BuildFixes.logs;
+import static me.dags.BuildFixes.BuildFixes.noPhysList;
+import static me.dags.BuildFixes.BuildFixes.noPhysics;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -19,12 +19,16 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+/**
+ * 
+ * @author dags_ <dags@dags.me>
+ */
+
 public class BlockListener implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void playerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		// DRAGON EGG INTERACTION BLOCKER!
 		if (eggBreak) {
 			if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
 					&& event.getClickedBlock().getType()
@@ -44,10 +48,9 @@ public class BlockListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void blockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		// PLACE COVERED LOGS!
 		if (logs) {
 			if (player.hasPermission("BuildFixes.logs")
 					&& player.getItemInHand().getType().equals(Material.LOG)) {
@@ -57,31 +60,24 @@ public class BlockListener implements Listener {
 				}
 			}
 		}
-		// PLACE HALF DOORS!
 		if (player.hasPermission("BuildFixes.doors") && doors) {
 			int blockType = player.getItemInHand().getTypeId();
 			int yaw = (int) player.getLocation().getYaw();
 			if (blockType == 64 || blockType == 71) {
-				// NORTH
-				if ((yaw >= -225 && yaw < -135) 
-						|| (yaw >= 135 && yaw <= 225)) {
+				if ((yaw >= -225 && yaw < -135) || (yaw >= 135 && yaw <= 225)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
 							(byte) 3, false);
 					event.getBlockPlaced().getRelative(BlockFace.UP)
 							.setTypeIdAndData(blockType, (byte) 3, false);
-				}
-				// EAST
-				else if ((yaw >= -135 && yaw < -45)
+				} else if ((yaw >= -135 && yaw < -45)
 						|| (yaw >= 225 && yaw < 315)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
 							(byte) 0, false);
 					event.getBlockPlaced().getRelative(BlockFace.UP)
 							.setTypeIdAndData(blockType, (byte) 0, false);
-				}
-				// SOUTH
-				else if ((yaw >= -45 && yaw < 45)
+				} else if ((yaw >= -45 && yaw < 45)
 						|| (yaw >= -360 && yaw < -315)
 						|| (yaw >= 315 && yaw <= 360)) {
 					event.getBlockPlaced().setTypeId(blockType);
@@ -89,9 +85,7 @@ public class BlockListener implements Listener {
 							(byte) 1, false);
 					event.getBlockPlaced().getRelative(BlockFace.UP)
 							.setTypeIdAndData(blockType, (byte) 1, false);
-				}
-				// WEST
-				else if ((yaw >= -315 && yaw < -225)
+				} else if ((yaw >= -315 && yaw < -225)
 						|| (yaw >= 45 && yaw < 135)) {
 					event.getBlockPlaced().setTypeId(blockType);
 					event.getBlockPlaced().setTypeIdAndData(blockType,
@@ -103,8 +97,7 @@ public class BlockListener implements Listener {
 		}
 	}
 
-	// BREAK EVENT FOR HALF-DOORS (ALSO REMOVES INVISIBLE HALF)
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void blockBreak(BlockBreakEvent event) {
 		int doorType = event.getBlock().getTypeId();
 		if (doorType == 64 || doorType == 71) {
@@ -121,8 +114,7 @@ public class BlockListener implements Listener {
 		}
 	}
 
-	// NOPHYSICS HANDLER
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void noPhysPlace(BlockPhysicsEvent event) {
 		if (noPhysics) {
 			int npBlockType = event.getBlock().getTypeId();
@@ -130,10 +122,9 @@ public class BlockListener implements Listener {
 				event.setCancelled(true);
 			}
 		}
-		// NOPHYSICS HANDLER FOR HALF-DOORS
-		if(doors){
-			if(event.getBlock().getTypeId() == 64
-					|| event.getBlock().getTypeId() == 71){
+		if (doors) {
+			if (event.getBlock().getTypeId() == 64
+					|| event.getBlock().getTypeId() == 71) {
 				event.setCancelled(true);
 			}
 		}

@@ -1,14 +1,23 @@
 name: BuildFixes
-main: com.dags.BuildFixes.BuildFixes
-version: 1.5
+main: me.dags.BuildFixes.BuildFixes
+version: 1.7.0
+authors: [dags_]
 
 commands:
    get:
-      description: Gives user stacks of 'special logs'
+      description: Gives user 'special' blocks.
       usage: /get <item> [#damage]
       permission: BuildFixes.get
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   fbt:
+      description: Toggle fullbright on/off.
+      usage: /fbt
+      permission: BuildFixes.fullbright
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
+  BuildFixes.fullbright:
+    description: Allow user to use /fb.
+    default: op
   BuildFixes.get:
     description: Allow user to use /get.
     default: op
@@ -20,6 +29,9 @@ permissions:
     default: op
   BuildFixes.furnace:
     description: Allow user to give themselves a burning furnace.
+    default: op
+  BuildFixes.grass:
+    description: Allow user to give themselves dead-bush grasstype (placeable on grass blocks).
     default: op
   BuildFixes.logs:
     description: Allow user to give themselves a stack of each 'special log' type.

@@ -1,8 +1,8 @@
-package com.dags.BuildFixes;
+package me.dags.BuildFixes.Listeners;
 
-import static com.dags.BuildFixes.BuildFixes.weatherBlock;
-import static com.dags.BuildFixes.BuildFixes.decayBlock;
-import static com.dags.BuildFixes.BuildFixes.formBlock;
+import static me.dags.BuildFixes.BuildFixes.decayBlock;
+import static me.dags.BuildFixes.BuildFixes.formBlock;
+import static me.dags.BuildFixes.BuildFixes.weatherBlock;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,6 +14,11 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+
+/**
+ * 
+ * @author dags_ <dags@dags.me>
+ */
 
 public class EnvironmentListener implements Listener {
 

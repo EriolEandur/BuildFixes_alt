@@ -8,14 +8,13 @@ Modules:
   Commands:
     Enable: true
     GetItem: true
+    Fullbright: true
   Environment:
     Enable: true
     DecayBlocking: true
     FormBlocking: true
     WeatherBlocking: true
 NoPhysicsList:
-  - 9
-  - 11
   - 27
   - 28
   - 34
