@@ -123,9 +123,20 @@ public class BlockListener implements Listener {
 			}
 		}
 		if (doors) {
-			if (event.getBlock().getTypeId() == 64
-					|| event.getBlock().getTypeId() == 71) {
-				event.setCancelled(true);
+			int id = event.getBlock().getTypeId();
+			int idabove = event.getBlock().getRelative(BlockFace.UP)
+					.getTypeId();
+			int idbelow = event.getBlock().getRelative(BlockFace.DOWN)
+					.getTypeId();
+			if ((id == 64 || id == 71) && (id == idabove || id == idbelow)) {
+				byte door = event.getBlock().getData();
+				byte above = event.getBlock().getRelative(BlockFace.UP)
+						.getData();
+				byte below = event.getBlock().getRelative(BlockFace.DOWN)
+						.getData();
+				if (door == above || door == below) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
