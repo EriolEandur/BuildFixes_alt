@@ -129,12 +129,14 @@ public class BlockListener implements Listener {
 			int idbelow = event.getBlock().getRelative(BlockFace.DOWN)
 					.getTypeId();
 			if ((id == 64 || id == 71) && (id == idabove || id == idbelow)) {
-				byte door = event.getBlock().getData();
+				byte dmg = event.getBlock().getData();
 				byte above = event.getBlock().getRelative(BlockFace.UP)
 						.getData();
 				byte below = event.getBlock().getRelative(BlockFace.DOWN)
 						.getData();
-				if (door == above || door == below) {
+
+				if ((id == idabove && dmg == above)
+						|| (id == idbelow && dmg == below)) {
 					event.setCancelled(true);
 				}
 			}

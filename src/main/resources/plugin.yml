@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.7.2
+version: 1.7.3
 authors: [dags_]
 
 commands:
