@@ -2,11 +2,15 @@ package me.dags.BuildFixes.Commands;
 
 import static me.dags.BuildFixes.BuildFixes.fbCMD;
 import static me.dags.BuildFixes.BuildFixes.getCMD;
+import static me.dags.BuildFixes.BuildFixes.multiWorlds;
 import static me.dags.BuildFixes.BuildFixes.prim;
 import static me.dags.BuildFixes.BuildFixes.scd;
 import static me.dags.BuildFixes.BuildFixes.ter;
 
+import me.dags.BuildFixes.WorldConfig.Worlds;
+
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +32,8 @@ public class Commands implements CommandExecutor {
 		} else {
 			Player p = (Player) cs;
 			if (c.equalsIgnoreCase("get")) {
-				if(cs.hasPermission("BuildFixes.get") && getCMD) {
+				if (cs.hasPermission("BuildFixes.get")
+						&& isAllowed("GetCMD", p.getWorld())) {
 					if (a.length == 0) {
 						p.sendMessage(ChatColor.GRAY
 								+ "/get [doors], [egg], [furnaces], [grass], [logs], [mushrooms], [slabs #]");
@@ -74,8 +79,9 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 			}
-			if (c.equalsIgnoreCase("fbt")){
-				if(cs.hasPermission("BuildFixes.fullbright") && fbCMD) {
+			if (c.equalsIgnoreCase("fbt")) {
+				if (cs.hasPermission("BuildFixes.fullbright")
+						&& isAllowed("FbCMD", p.getWorld())) {
 					if (p.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
 						p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 						p.sendMessage(ter + "Fullbright off!");
@@ -86,7 +92,7 @@ public class Commands implements CommandExecutor {
 						p.sendMessage(prim + "Fullbright on!");
 						return true;
 					}
-				} else{
+				} else {
 					p.sendMessage(scd
 							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
 					return true;
@@ -94,6 +100,25 @@ public class Commands implements CommandExecutor {
 			}
 		}
 		return false;
+	}
+
+	private boolean isAllowed(String s, World w) {
+		if (s.equals("GetCMD")) {
+			if (multiWorlds) {
+				return Worlds.isCancelled(s, w);
+			} else {
+				return getCMD;
+			}
+		}
+		if (s.equals("FbCMD")) {
+			if (multiWorlds) {
+				return Worlds.isCancelled(s, w);
+			} else {
+				return fbCMD;
+			}
+		} else {
+			return false;
+		}
 	}
 
 }

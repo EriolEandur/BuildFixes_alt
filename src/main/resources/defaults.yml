@@ -1,5 +1,3 @@
-MultiWorldSupport:
-  Enable: true
 Modules:
   BuildFixes:
     Enable: true
@@ -17,13 +15,3 @@ Modules:
     FormBlocking: true
     MobBlocking: true
     WeatherBlocking: true
-NoPhysicsList:
-  - 27
-  - 28
-  - 34
-  - 50
-  - 65
-  - 66
-  - 122
-  - 140
-  - 157
