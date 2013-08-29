@@ -6,8 +6,7 @@ import static me.dags.BuildFixes.BuildFixes.multiWorlds;
 import static me.dags.BuildFixes.BuildFixes.prim;
 import static me.dags.BuildFixes.BuildFixes.scd;
 import static me.dags.BuildFixes.BuildFixes.ter;
-
-import me.dags.BuildFixes.WorldConfig.Worlds;
+import static me.dags.BuildFixes.MultiWorld.Worlds.worldsCFG;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -41,36 +40,36 @@ public class Commands implements CommandExecutor {
 					}
 					if ((a[0].equalsIgnoreCase("doors") || a[0]
 							.equalsIgnoreCase("door"))) {
-						getMethods.getDoors(p);
+						GetMethods.getDoors(p);
 						return true;
 					}
 					if (a[0].equalsIgnoreCase("eggs")
 							|| a[0].equalsIgnoreCase("egg")) {
-						getMethods.getEggs(p);
+						GetMethods.getEggs(p);
 						return true;
 					}
 					if (a[0].equalsIgnoreCase("furnaces")
 							|| a[0].equalsIgnoreCase("furnace")) {
-						getMethods.getFurnaces(p);
+						GetMethods.getFurnaces(p);
 						return true;
 					}
 					if (a[0].equalsIgnoreCase("grass")) {
-						getMethods.getGrass(p);
+						GetMethods.getGrass(p);
 						return true;
 					}
 					if ((a[0].equalsIgnoreCase("logs") || a[0]
 							.equalsIgnoreCase("log"))) {
-						getMethods.getLogs(p);
+						GetMethods.getLogs(p);
 						return true;
 					}
 					if ((a[0].equalsIgnoreCase("mushrooms") || a[0]
 							.equalsIgnoreCase("mushroom"))) {
-						getMethods.getMushrooms(p);
+						GetMethods.getMushrooms(p);
 						return true;
 					}
 					if ((a[0].equalsIgnoreCase("slabs") || a[0]
 							.equalsIgnoreCase("slab"))) {
-						getMethods.getSlabs(p, a[1]);
+						GetMethods.getSlabs(p, a[1]);
 						return true;
 					}
 				} else {
@@ -105,14 +104,14 @@ public class Commands implements CommandExecutor {
 	private boolean isAllowed(String s, World w) {
 		if (s.equals("GetCMD")) {
 			if (multiWorlds) {
-				return Worlds.isCancelled(s, w);
+				return worldsCFG.get(w.getName()).get(4);
 			} else {
 				return getCMD;
 			}
 		}
 		if (s.equals("FbCMD")) {
 			if (multiWorlds) {
-				return Worlds.isCancelled(s, w);
+				return worldsCFG.get(w.getName()).get(5);
 			} else {
 				return fbCMD;
 			}

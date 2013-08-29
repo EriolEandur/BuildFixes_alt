@@ -1,4 +1,4 @@
-package me.dags.BuildFixes.WorldConfig;
+package me.dags.BuildFixes.MultiWorld;
 
 import java.io.File;
 import java.io.IOException;

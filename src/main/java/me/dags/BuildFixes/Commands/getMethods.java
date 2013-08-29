@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
  * @author dags_ <dags@dags.me>
  */
 
-public class getMethods {
+public class GetMethods {
 
 	public static void getDoors(Player p) {
 		if (p.hasPermission("BuildFixes.doors")) {

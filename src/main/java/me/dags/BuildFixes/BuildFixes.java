@@ -6,8 +6,8 @@ import java.util.List;
 import me.dags.BuildFixes.Commands.Commands;
 import me.dags.BuildFixes.Listeners.BlockListener;
 import me.dags.BuildFixes.Listeners.EnvironmentListener;
-import me.dags.BuildFixes.WorldConfig.Config;
-import me.dags.BuildFixes.WorldConfig.Worlds;
+import me.dags.BuildFixes.MultiWorld.Config;
+import me.dags.BuildFixes.MultiWorld.Worlds;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -63,7 +63,7 @@ public class BuildFixes extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		noPhysList.clear();
-		Worlds.worlds.clear();
+		Worlds.worldsCFG.clear();
 	}
 
 	public void setupConfig() {
