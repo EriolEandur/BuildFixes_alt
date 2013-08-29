@@ -13,11 +13,13 @@ Features:
 - Add NoPhysics properties to any block ID!
 - Command to give user a variety of blocks that are otherwise missing from creative inventories
 - Restrict environmental effects such as weather, block decays/forms
+- Block mob spawning
+- Support for multiple worlds!
 <br/>
 <br/>
 
 Commands:<br/>
-- <b>'/get [egg], [doors], [furnace], [logs], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
+- <b>'/get [egg], [doors], [furnace], [grass], [logs], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
 <br/>
 
 
