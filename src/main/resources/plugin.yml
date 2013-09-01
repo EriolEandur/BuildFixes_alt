@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.8.0
+version: 1.8.1
 author: dags_
 
 commands:
@@ -14,17 +14,20 @@ commands:
       usage: /fbt
       permission: BuildFixes.fullbright
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
-   bftool:
-      description: BLAH.
-      usage: /fbtool ID:DMG
-      permission: BuildFixes.bftool
-      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
+  BuildFixes.builder:
+    default: op
+    children:
+      BuildFixes.fullbright: true
+      BuildFixes.get: true
+      BuildFixes.doors: true
+      BuildFixes.furnace: true
+      BuildFixes.grass: true
+      BuildFixes.logs: true
+      BuildFixes.mushrooms: true
+      BuildFixes.slabs: true
   BuildFixes.fullbright:
     description: Allow user to use /fb.
-    default: op
-  BuildFixes.bftool:
-    description: Allow user to use the buildfixes tool.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.

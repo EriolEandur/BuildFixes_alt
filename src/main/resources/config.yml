@@ -15,8 +15,9 @@ Modules:
     Enable: true
     DecayBlocking: true
     FormBlocking: true
-    MobBlocking: true
     WeatherBlocking: true
+    AnimalBlocking: true
+    MonsterBlocking: true
 NoPhysicsList:
   - 27
   - 28

@@ -38,7 +38,6 @@ public class BuildFixes extends JavaPlugin {
 	public static boolean weatherBlock;
 	public static boolean decayBlock;
 	public static boolean formBlock;
-	public static boolean mobBlock;
 
 	public static ChatColor prim = ChatColor.DARK_AQUA;
 	public static ChatColor scd = ChatColor.DARK_PURPLE;
@@ -87,9 +86,17 @@ public class BuildFixes extends JavaPlugin {
 		decayBlock = getConfig()
 				.getBoolean("Modules.Environment.DecayBlocking");
 		formBlock = getConfig().getBoolean("Modules.Environment.FormBlocking");
-		mobBlock = getConfig().getBoolean("Modules.Environment.MobBlocking");
 		weatherBlock = getConfig().getBoolean(
 				"Modules.Environment.WeatherBlocking");
+		if (!multiWorlds) {
+			boolean animal = getConfig().getBoolean(
+					"Modules.Environment.AnimalBlocking");
+			boolean monster = getConfig().getBoolean(
+					"Modules.Environment.MonsterBlocking");
+			for (World w : Bukkit.getServer().getWorlds()) {
+				w.setSpawnFlags(!animal, !monster);
+			}
+		}
 	}
 
 	public void setupModules() {
@@ -121,7 +128,7 @@ public class BuildFixes extends JavaPlugin {
 
 	private void worldDefaults(World w) {
 		Config cfg = new Config(this, w.getName());
-		
+
 		cfg.getWorldConfig().options().copyDefaults(true);
 		cfg.saveWorldConfig();
 

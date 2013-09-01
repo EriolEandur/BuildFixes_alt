@@ -9,6 +9,11 @@ import me.dags.BuildFixes.BuildFixes;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * 
+ * @author dags_ <dags@dags.me>
+ */
+
 public class Worlds {
 
 	public static HashMap<String, List<Boolean>> worldsCFG = new HashMap<String, List<Boolean>>();
@@ -19,7 +24,7 @@ public class Worlds {
 		String world = w.getName();
 
 		Config cfg = new Config(instance, w.getName());
-		
+
 		boolean doors = false;
 		boolean eggs = false;
 		boolean nophys = false;
@@ -28,44 +33,52 @@ public class Worlds {
 		boolean fbCMD = false;
 		boolean decay = false;
 		boolean form = false;
-		boolean mob = false;
 		boolean weather = false;
-		
-		if (cfg.getWorldConfig().getBoolean("Modules.BuildFixes.Enable") ) {
+		boolean animal = false;
+		boolean monster = false;
+
+		if (cfg.getWorldConfig().getBoolean("Modules.BuildFixes.Enable")) {
 			eggs = cfg.getWorldConfig().getBoolean(
 					"Modules.BuildFixes.DragonEggBlocking");
-			doors = cfg.getWorldConfig().getBoolean("Modules.BuildFixes.HalfDoors");
+			doors = cfg.getWorldConfig().getBoolean(
+					"Modules.BuildFixes.HalfDoors");
 			logs = cfg.getWorldConfig().getBoolean(
 					"Modules.BuildFixes.SpecialLogs");
-			nophys = cfg.getWorldConfig().getBoolean("Modules.BuildFixes.NoPhysics");
+			nophys = cfg.getWorldConfig().getBoolean(
+					"Modules.BuildFixes.NoPhysics");
 		}
 		if (cfg.getWorldConfig().getBoolean("Modules.Commands.Enable")) {
-			getCMD = cfg.getWorldConfig().getBoolean("Modules.Commands.GetItem");
-			fbCMD = cfg.getWorldConfig().getBoolean("Modules.Commands.Fullbright");
+			getCMD = cfg.getWorldConfig()
+					.getBoolean("Modules.Commands.GetItem");
+			fbCMD = cfg.getWorldConfig().getBoolean(
+					"Modules.Commands.Fullbright");
 		}
 		if (cfg.getWorldConfig().getBoolean("Modules.Environment.Enable")) {
 			decay = cfg.getWorldConfig().getBoolean(
 					"Modules.Environment.DecayBlocking");
 			form = cfg.getWorldConfig().getBoolean(
 					"Modules.Environment.FormBlocking");
-			mob = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.MobBlocking");
 			weather = cfg.getWorldConfig().getBoolean(
 					"Modules.Environment.WeatherBlocking");
+			animal = cfg.getWorldConfig().getBoolean(
+					"Modules.Environment.AnimalBlocking");
+			monster = cfg.getWorldConfig().getBoolean(
+					"Modules.Environment.MonsterBlocking");
 		}
-		
+
 		settings.add(0, doors);
 		settings.add(1, eggs);
 		settings.add(2, logs);
 		settings.add(3, nophys);
-		
+
 		settings.add(4, getCMD);
 		settings.add(5, fbCMD);
-		
+
 		settings.add(6, decay);
 		settings.add(7, form);
-		settings.add(8, mob);
-		settings.add(9, weather);
+		settings.add(8, weather);
+
 		worldsCFG.put(world, settings);
+		w.setSpawnFlags(!monster, !animal);
 	}
 }
