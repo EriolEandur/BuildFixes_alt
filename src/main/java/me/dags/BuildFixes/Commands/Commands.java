@@ -33,7 +33,7 @@ public class Commands implements CommandExecutor {
 						&& worldsCFG.get(w.getName()).get(4)) {
 					if (a.length == 0) {
 						p.sendMessage(ChatColor.GRAY
-								+ "/get [doors], [egg], [furnaces], [grass], [logs], [mushrooms], [slabs #]");
+								+ "/get [doors], [egg], [furnaces], [grass], [head], [logs], [mushrooms], [slabs #]");
 						return true;
 					}
 					if ((a[0].equalsIgnoreCase("doors") || a[0]
@@ -55,6 +55,15 @@ public class Commands implements CommandExecutor {
 						GetMethods.getGrass(p);
 						return true;
 					}
+					if (a[0].equalsIgnoreCase("head")) {
+						if(a.length == 2) {
+							GetMethods.getHead(p, a[1]);
+							return true;
+						} else {
+							p.sendMessage(scd + "/get head <PlayerName>");
+							return true;
+						}
+					}
 					if ((a[0].equalsIgnoreCase("logs") || a[0]
 							.equalsIgnoreCase("log"))) {
 						GetMethods.getLogs(p);
@@ -67,8 +76,13 @@ public class Commands implements CommandExecutor {
 					}
 					if ((a[0].equalsIgnoreCase("slabs") || a[0]
 							.equalsIgnoreCase("slab"))) {
-						GetMethods.getSlabs(p, a[1]);
-						return true;
+						if (a.length == 2) {
+							GetMethods.getSlabs(p, a[1]);
+							return true;
+						} else {
+							p.sendMessage(scd + "/get slabs <#number>");
+							return true;
+						}
 					}
 				} else {
 					p.sendMessage(scd

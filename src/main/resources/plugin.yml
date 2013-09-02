@@ -53,6 +53,9 @@ permissions:
   BuildFixes.slabs:
     description: Allow user to give themselves double slabs.
     default: op
+  BuildFixes.heads:
+    description: Allow user to give themselves a player's head!
+    default: op
   BuildFixes.eggInteract:
     description: Allow user to interact with Dragon Eggs.
     default: op

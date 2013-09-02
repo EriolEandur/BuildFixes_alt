@@ -3,8 +3,15 @@ package me.dags.BuildFixes.Commands;
 import static me.dags.BuildFixes.BuildFixes.prim;
 import static me.dags.BuildFixes.BuildFixes.scd;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 /**
  * 
@@ -62,6 +69,25 @@ public class GetMethods {
 			return;
 		}
 	}
+	
+	public static void getHead(Player p, String s) {
+		if (p.hasPermission("BuildFixes.heads")) {
+			ItemStack is = new ItemStack(Material.SKULL_ITEM, 64, (short) 3);
+			
+			SkullMeta sm = (SkullMeta) is.getItemMeta();
+			sm.setOwner(s);
+			sm.setDisplayName(randomColor() + s);
+			is.setItemMeta(sm.clone());
+			
+			p.getInventory().addItem(is);
+			p.sendMessage(prim + "Given " + scd + s + "'s" +prim + " head!");
+			return;
+		} else {
+			p.sendMessage(scd
+					+ "Sorry, you do not have permission to use that Command!");
+			return;
+		}
+	}
 
 	public static void getLogs(Player p) {
 		if (p.hasPermission("BuildFixes.logs")) {
@@ -108,7 +134,7 @@ public class GetMethods {
 		}
 	}
 
-	public static boolean isInt(String str) {
+	private static boolean isInt(String str) {
 		if (str == null) {
 			return false;
 		}
@@ -131,5 +157,26 @@ public class GetMethods {
 		}
 		return true;
 	}
+	
+	private static ChatColor randomColor(){
+		List<ChatColor> list = new ArrayList<ChatColor>();
+		for(ChatColor cc : ChatColor.values()) {
+			if(!(cc.equals(ChatColor.BOLD)
+					|| cc.equals(ChatColor.COLOR_CHAR)
+					|| cc.equals(ChatColor.MAGIC)
+					|| cc.equals(ChatColor.RESET)
+					|| cc.equals(ChatColor.STRIKETHROUGH)
+					|| cc.equals(ChatColor.UNDERLINE)) ) {
+				list.add(cc);
+			}
+		}
+		ChatColor c = list.get(getRandom(0, list.size()-1));
+		return c;
+	}
+	
+	private static int getRandom(int lower, int upper) {
+        Random random = new Random();
+        return random.nextInt((upper - lower) + 1) + lower;
+    }
 
 }
