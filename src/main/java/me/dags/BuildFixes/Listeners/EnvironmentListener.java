@@ -1,10 +1,6 @@
 package me.dags.BuildFixes.Listeners;
 
-import static me.dags.BuildFixes.BuildFixes.decayBlock;
-import static me.dags.BuildFixes.BuildFixes.formBlock;
-import static me.dags.BuildFixes.BuildFixes.multiWorlds;
-import static me.dags.BuildFixes.BuildFixes.weatherBlock;
-import static me.dags.BuildFixes.MultiWorld.Worlds.worldsCFG;
+import static me.dags.BuildFixes.BuildFixes.worldsCFG;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,74 +22,41 @@ public class EnvironmentListener implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onWeatherChange(WeatherChangeEvent event) {
-		if (event.toWeatherState()) {
-			if (multiWorlds) {
-				event.setCancelled(worldsCFG.get(event.getWorld().getName())
-						.get(8));
-			} else {
-				event.setCancelled(weatherBlock);
+		if (worldsCFG.get(event.getWorld().getName()).get(8)) {
+			if (event.toWeatherState()) {
+				event.setCancelled(true);
 			}
 		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockBurn(BlockBurnEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(6));
-		} else {
-			event.setCancelled(decayBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockFade(BlockFadeEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(6));
-		} else {
-			event.setCancelled(decayBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onLeavesDecay(LeavesDecayEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(6));
-		} else {
-			event.setCancelled(decayBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockForm(BlockFormEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(7));
-		} else {
-			event.setCancelled(formBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockGrow(BlockGrowEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(7));
-		} else {
-			event.setCancelled(formBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockSpread(BlockSpreadEvent event) {
-		if (multiWorlds) {
-			event.setCancelled(worldsCFG.get(
-					event.getBlock().getWorld().getName()).get(7));
-		} else {
-			event.setCancelled(formBlock);
-		}
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
 	}
 
 }

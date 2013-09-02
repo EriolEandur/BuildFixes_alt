@@ -1,4 +1,4 @@
-package me.dags.BuildFixes.MultiWorld;
+package me.dags.BuildFixes.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Config {
+public class ConfigUtil {
 
 	private FileConfiguration worldContents = null;
 	private File worldFile = null;
@@ -22,7 +22,7 @@ public class Config {
 
 	public static Plugin instance = BuildFixes.inst();
 
-	public Config(JavaPlugin plugin, String name) {
+	public ConfigUtil(JavaPlugin plugin, String name) {
 		if (plugin == null)
 			throw new IllegalArgumentException("Plugin cannot be null!");
 		if (!plugin.isInitialized())

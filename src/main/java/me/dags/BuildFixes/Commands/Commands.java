@@ -1,12 +1,9 @@
 package me.dags.BuildFixes.Commands;
 
-import static me.dags.BuildFixes.BuildFixes.fbCMD;
-import static me.dags.BuildFixes.BuildFixes.getCMD;
-import static me.dags.BuildFixes.BuildFixes.multiWorlds;
 import static me.dags.BuildFixes.BuildFixes.prim;
 import static me.dags.BuildFixes.BuildFixes.scd;
 import static me.dags.BuildFixes.BuildFixes.ter;
-import static me.dags.BuildFixes.MultiWorld.Worlds.worldsCFG;
+import static me.dags.BuildFixes.BuildFixes.worldsCFG;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -30,9 +27,10 @@ public class Commands implements CommandExecutor {
 			return true;
 		} else {
 			Player p = (Player) cs;
+			World w = p.getWorld();
 			if (c.equalsIgnoreCase("get")) {
 				if (cs.hasPermission("BuildFixes.get")
-						&& isAllowed("GetCMD", p.getWorld())) {
+						&& worldsCFG.get(w.getName()).get(4)) {
 					if (a.length == 0) {
 						p.sendMessage(ChatColor.GRAY
 								+ "/get [doors], [egg], [furnaces], [grass], [logs], [mushrooms], [slabs #]");
@@ -80,7 +78,7 @@ public class Commands implements CommandExecutor {
 			}
 			if (c.equalsIgnoreCase("fbt")) {
 				if (cs.hasPermission("BuildFixes.fullbright")
-						&& isAllowed("FbCMD", p.getWorld())) {
+						&& worldsCFG.get(w.getName()).get(5)) {
 					if (p.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
 						p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 						p.sendMessage(ter + "Fullbright off!");
@@ -99,25 +97,6 @@ public class Commands implements CommandExecutor {
 			}
 		}
 		return false;
-	}
-
-	private boolean isAllowed(String s, World w) {
-		if (s.equals("GetCMD")) {
-			if (multiWorlds) {
-				return worldsCFG.get(w.getName()).get(4);
-			} else {
-				return getCMD;
-			}
-		}
-		if (s.equals("FbCMD")) {
-			if (multiWorlds) {
-				return worldsCFG.get(w.getName()).get(5);
-			} else {
-				return fbCMD;
-			}
-		} else {
-			return false;
-		}
 	}
 
 }

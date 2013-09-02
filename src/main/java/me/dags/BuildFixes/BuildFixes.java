@@ -1,13 +1,15 @@
 package me.dags.BuildFixes;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
 import me.dags.BuildFixes.Commands.Commands;
+import me.dags.BuildFixes.Configuration.ConfigUtil;
+import me.dags.BuildFixes.Configuration.Global;
+import me.dags.BuildFixes.Configuration.MultiWorlds;
 import me.dags.BuildFixes.Listeners.BlockListener;
 import me.dags.BuildFixes.Listeners.EnvironmentListener;
-import me.dags.BuildFixes.MultiWorld.Config;
-import me.dags.BuildFixes.MultiWorld.Worlds;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,21 +29,14 @@ public class BuildFixes extends JavaPlugin {
 	public static boolean multiWorlds;
 	public static boolean fixesModule;
 	public static HashSet<Integer> noPhysList = new HashSet<Integer>();
-	public static boolean doors;
-	public static boolean logs;
-	public static boolean noPhysics;
-	public static boolean eggBreak;
 	public static boolean commandsModule;
-	public static boolean getCMD;
-	public static boolean fbCMD;
 	public static boolean environmentModule;
-	public static boolean weatherBlock;
-	public static boolean decayBlock;
-	public static boolean formBlock;
 
 	public static ChatColor prim = ChatColor.DARK_AQUA;
 	public static ChatColor scd = ChatColor.DARK_PURPLE;
 	public static ChatColor ter = ChatColor.GRAY;
+	
+	public static HashMap<String, List<Boolean>> worldsCFG = new HashMap<String, List<Boolean>>();
 
 	public BuildFixes() {
 		super();
@@ -55,14 +50,15 @@ public class BuildFixes extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		setupConfig();
-		configValues();
+		enableModules();
 		setupModules();
+		loadWorldSettings();
 	}
 
 	@Override
 	public void onDisable() {
 		noPhysList.clear();
-		Worlds.worldsCFG.clear();
+		worldsCFG.clear();
 	}
 
 	public void setupConfig() {
@@ -70,39 +66,14 @@ public class BuildFixes extends JavaPlugin {
 		saveConfig();
 	}
 
-	public void configValues() {
+	public void enableModules() {
 		multiWorlds = getConfig().getBoolean("MultiWorldSupport.Enable");
 		fixesModule = getConfig().getBoolean("Modules.BuildFixes.Enable");
 		commandsModule = getConfig().getBoolean("Modules.Commands.Enable");
-		environmentModule = getConfig()
-				.getBoolean("Modules.Environment.Enable");
-		doors = getConfig().getBoolean("Modules.BuildFixes.HalfDoors");
-		logs = getConfig().getBoolean("Modules.BuildFixes.SpecialLogs");
-		noPhysics = getConfig().getBoolean("Modules.BuildFixes.NoPhysics");
-		eggBreak = getConfig().getBoolean(
-				"Modules.BuildFixes.DragonEggBlocking");
-		getCMD = getConfig().getBoolean("Modules.Commands.GetItem");
-		fbCMD = getConfig().getBoolean("Modules.Commands.Fullbright");
-		decayBlock = getConfig()
-				.getBoolean("Modules.Environment.DecayBlocking");
-		formBlock = getConfig().getBoolean("Modules.Environment.FormBlocking");
-		weatherBlock = getConfig().getBoolean(
-				"Modules.Environment.WeatherBlocking");
-		if (!multiWorlds) {
-			boolean animal = getConfig().getBoolean(
-					"Modules.Environment.AnimalBlocking");
-			boolean monster = getConfig().getBoolean(
-					"Modules.Environment.MonsterBlocking");
-			for (World w : Bukkit.getServer().getWorlds()) {
-				w.setSpawnFlags(!animal, !monster);
-			}
-		}
+		environmentModule = getConfig().getBoolean("Modules.Environment.Enable");
 	}
 
 	public void setupModules() {
-		if (multiWorlds) {
-			loadWorlds();
-		}
 		if (fixesModule) {
 			this.getServer().getPluginManager()
 					.registerEvents(new BlockListener(), this);
@@ -118,21 +89,25 @@ public class BuildFixes extends JavaPlugin {
 		}
 	}
 
-	private void loadWorlds() {
+	private void loadWorldSettings() {
 		for (World w : Bukkit.getServer().getWorlds()) {
 			worldDefaults(w);
 		}
-		System.out.print("BuildFixes is running in MultiWorld mode!");
 	}
 
 	private void worldDefaults(World w) {
-		Config cfg = new Config(this, w.getName());
+		if(multiWorlds){
+			ConfigUtil cfg = new ConfigUtil(this, w.getName());
 
-		cfg.getWorldConfig().options().copyDefaults(true);
-		cfg.saveWorldConfig();
+			cfg.getWorldConfig().options().copyDefaults(true);
+			cfg.saveWorldConfig();
 
-		Worlds.multiWorld(w);
-		System.out.print("BuildFixes found world: " + w.getName());
+			MultiWorlds.multiWorld(w);
+			System.out.print("[BuildFixes] is using MultiWorld settings for world: " + w.getName());
+		} else {
+			Global.config(w);
+			System.out.print("[BuildFixes] is using Global settings for world: " + w.getName());
+		}
 	}
 
 	private void setupNoPhysList() {

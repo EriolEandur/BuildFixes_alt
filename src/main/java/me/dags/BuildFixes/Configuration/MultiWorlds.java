@@ -1,7 +1,8 @@
-package me.dags.BuildFixes.MultiWorld;
+package me.dags.BuildFixes.Configuration;
+
+import static me.dags.BuildFixes.BuildFixes.worldsCFG;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import me.dags.BuildFixes.BuildFixes;
@@ -14,16 +15,15 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author dags_ <dags@dags.me>
  */
 
-public class Worlds {
+public class MultiWorlds {
 
-	public static HashMap<String, List<Boolean>> worldsCFG = new HashMap<String, List<Boolean>>();
 	public static JavaPlugin instance = (JavaPlugin) BuildFixes.inst();
 
 	public static void multiWorld(World w) {
 		List<Boolean> settings = new ArrayList<Boolean>();
 		String world = w.getName();
 
-		Config cfg = new Config(instance, w.getName());
+		ConfigUtil cfg = new ConfigUtil(instance, w.getName());
 
 		boolean doors = false;
 		boolean eggs = false;
