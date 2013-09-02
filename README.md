@@ -20,7 +20,7 @@ Features:
 <br/>
 
 Commands:<br/>
-- <b>'/get [egg], [doors], [furnace], [grass], [logs], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
+- <b>'/get [egg], [doors], [furnace], [grass], [head], [logs], [mushrooms], [slabs #0-15]'</b> - gives user the various type of special blocks
 <br/>
 
 
