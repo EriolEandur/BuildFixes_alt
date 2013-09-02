@@ -10,6 +10,7 @@ Features:
 - Block dragon egg interactions!
 - Place half-doors
 - Place 'special logs' (with tree-bark on all sides)
+- Give yourself other player's heads!
 - Add NoPhysics properties to any block ID!
 - Command to give user a variety of blocks that are otherwise missing from creative inventories
 - Restrict environmental effects such as weather, block decays/forms
@@ -25,10 +26,12 @@ Commands:<br/>
 
 Permissions:<br/>
 - <b>'BuildFixes.get'</b> - allows user to use the /get command
-  - <b>'BuildFixes.doors'</b> - allows user to /get half-door blocks and place them
-  - <b>'BuildFixes.eggs'</b> - allows user to /get a dragon egg
-  - <b>'BuildFixes.furnace'</b> - allows user to /get a lit furnace
-  - <b>'BuildFixes.logs'</b> - allows user to /get 'special logs'
-  - <b>'BuildFixes.mushroom'</b> - allows user to /get a mushroom block
-  - <b>'BuildFixes.slabs'</b> - allows user to /get double slabs (#0-15)
+- <b>'BuildFixes.doors'</b> - allows user to /get half-door blocks and place them
+- <b>'BuildFixes.eggs'</b> - allows user to /get a dragon egg
+- <b>'BuildFixes.furnace'</b> - allows user to /get a lit furnace
+- <b>'BuildFixes.grass'</b> - allows user to /get a the deadbush variation of grass
+- <b>'BuildFixes.heads'</b> - allows user to /get a player head
+- <b>'BuildFixes.logs'</b> - allows user to /get 'special logs'
+- <b>'BuildFixes.mushroom'</b> - allows user to /get a mushroom block
+- <b>'BuildFixes.slabs'</b> - allows user to /get double slabs (#0-15)
 - <b>'BuildFixes.eggInteract'</b> - allows user to interact with dragon eggs
