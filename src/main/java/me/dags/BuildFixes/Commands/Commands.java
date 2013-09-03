@@ -5,6 +5,8 @@ import static me.dags.BuildFixes.BuildFixes.scd;
 import static me.dags.BuildFixes.BuildFixes.ter;
 import static me.dags.BuildFixes.BuildFixes.worldsCFG;
 
+import java.io.IOException;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -103,6 +105,20 @@ public class Commands implements CommandExecutor {
 						p.sendMessage(prim + "Fullbright on!");
 						return true;
 					}
+				} else {
+					p.sendMessage(scd
+							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					return true;
+				}
+			}
+			if (c.equalsIgnoreCase("stencillist")) {
+				if (cs.hasPermission("BuildFixes.stencillist")) {
+					try {
+						UtilMethods.getStencils(p);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}					
+					return true;
 				} else {
 					p.sendMessage(scd
 							+ "Sorry, that feature is disabled, or you don't have permission to use it!");

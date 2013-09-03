@@ -16,6 +16,7 @@ Modules:
     DecayBlocking: true
     FormBlocking: true
     WeatherBlocking: true
+    FireSpreadBlocking: true
     AnimalBlocking: true
     MonsterBlocking: true
 NoPhysicsList:

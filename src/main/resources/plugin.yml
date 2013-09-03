@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.8.1
+version: 1.8.2
 author: dags_
 
 commands:
@@ -13,6 +13,11 @@ commands:
       description: Toggle fullbright on/off.
       usage: /fbt
       permission: BuildFixes.fullbright
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   stencillist:
+      description: List available Voxel stencil lists.
+      usage: /stencillist
+      permission: BuildFixes.stencillist
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
@@ -28,6 +33,9 @@ permissions:
       BuildFixes.slabs: true
   BuildFixes.fullbright:
     description: Allow user to use /fb.
+    default: op
+  BuildFixes.stencillist:
+    description: Allow user to use /stencillist.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.

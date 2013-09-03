@@ -8,6 +8,7 @@ import java.util.List;
 import me.dags.BuildFixes.BuildFixes;
 
 import org.bukkit.World;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -23,7 +24,8 @@ public class MultiWorlds {
 		List<Boolean> settings = new ArrayList<Boolean>();
 		String world = w.getName();
 
-		ConfigUtil cfg = new ConfigUtil(instance, w.getName());
+		ConfigUtil cu = new ConfigUtil(instance, w.getName());
+		Configuration cfg = cu.getWorldConfig();
 
 		boolean doors = false;
 		boolean eggs = false;
@@ -34,36 +36,27 @@ public class MultiWorlds {
 		boolean decay = false;
 		boolean form = false;
 		boolean weather = false;
+		boolean fire = false;
 		boolean animal = false;
 		boolean monster = false;
 
-		if (cfg.getWorldConfig().getBoolean("Modules.BuildFixes.Enable")) {
-			eggs = cfg.getWorldConfig().getBoolean(
-					"Modules.BuildFixes.DragonEggBlocking");
-			doors = cfg.getWorldConfig().getBoolean(
-					"Modules.BuildFixes.HalfDoors");
-			logs = cfg.getWorldConfig().getBoolean(
-					"Modules.BuildFixes.SpecialLogs");
-			nophys = cfg.getWorldConfig().getBoolean(
-					"Modules.BuildFixes.NoPhysics");
+		if (cfg.getBoolean("Modules.BuildFixes.Enable")) {
+			eggs = cfg.getBoolean("Modules.BuildFixes.DragonEggBlocking");
+			doors = cfg.getBoolean("Modules.BuildFixes.HalfDoors");
+			logs = cfg.getBoolean("Modules.BuildFixes.SpecialLogs");
+			nophys = cfg.getBoolean("Modules.BuildFixes.NoPhysics");
 		}
-		if (cfg.getWorldConfig().getBoolean("Modules.Commands.Enable")) {
-			getCMD = cfg.getWorldConfig()
-					.getBoolean("Modules.Commands.GetItem");
-			fbCMD = cfg.getWorldConfig().getBoolean(
-					"Modules.Commands.Fullbright");
+		if (cfg.getBoolean("Modules.Commands.Enable")) {
+			getCMD = cfg.getBoolean("Modules.Commands.GetItem");
+			fbCMD = cfg.getBoolean("Modules.Commands.Fullbright");
 		}
-		if (cfg.getWorldConfig().getBoolean("Modules.Environment.Enable")) {
-			decay = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.DecayBlocking");
-			form = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.FormBlocking");
-			weather = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.WeatherBlocking");
-			animal = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.AnimalBlocking");
-			monster = cfg.getWorldConfig().getBoolean(
-					"Modules.Environment.MonsterBlocking");
+		if (cfg.getBoolean("Modules.Environment.Enable")) {
+			decay = cfg.getBoolean("Modules.Environment.DecayBlocking");
+			form = cfg.getBoolean("Modules.Environment.FormBlocking");
+			weather = cfg.getBoolean("Modules.Environment.WeatherBlocking");
+			fire = cfg.getBoolean("Modules.Environment.FireSpreadBlocking");
+			animal = cfg.getBoolean("Modules.Environment.AnimalBlocking");
+			monster = cfg.getBoolean("Modules.Environment.MonsterBlocking");
 		}
 
 		settings.add(0, doors);
@@ -80,5 +73,8 @@ public class MultiWorlds {
 
 		worldsCFG.put(world, settings);
 		w.setSpawnFlags(!monster, !animal);
+		
+		String value = String.valueOf(!fire);
+		w.setGameRuleValue("doFireTick", value);
 	}
 }

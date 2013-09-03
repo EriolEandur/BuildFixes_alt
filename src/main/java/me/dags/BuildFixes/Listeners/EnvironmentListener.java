@@ -31,32 +31,44 @@ public class EnvironmentListener implements Listener {
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockBurn(BlockBurnEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
+		if (event.getBlock().getWorld().getGameRuleValue("doFireTick")
+				.equals("false")) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockFade(BlockFadeEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
+		if (event.getBlock().getTypeId() != 51) {
+			event.setCancelled(worldsCFG.get(
+					event.getBlock().getWorld().getName()).get(6));
+		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onLeavesDecay(LeavesDecayEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(6));
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName())
+				.get(6));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockForm(BlockFormEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName())
+				.get(7));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockGrow(BlockGrowEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
+		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName())
+				.get(7));
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	private void onBlockSpread(BlockSpreadEvent event) {
-		event.setCancelled(worldsCFG.get(event.getBlock().getWorld().getName()).get(7));
+		if (event.getBlock().getTypeId() != 51) {
+			event.setCancelled(worldsCFG.get(
+					event.getBlock().getWorld().getName()).get(7));
+		}
 	}
 
 }

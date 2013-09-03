@@ -28,6 +28,7 @@ public class Global {
 		boolean decay = false;
 		boolean form = false;
 		boolean weather = false;
+		boolean fire = false;
 		boolean animal = false;
 		boolean monster = false;
 
@@ -45,6 +46,7 @@ public class Global {
 			decay = cfg.getBoolean("Modules.Environment.DecayBlocking");
 			form = cfg.getBoolean("Modules.Environment.FormBlocking");
 			weather = cfg.getBoolean("Modules.Environment.WeatherBlocking");
+			fire = cfg.getBoolean("Modules.Environment.FireSpreadBlocking");
 			animal = cfg.getBoolean("Modules.Environment.AnimalBlocking");
 			monster = cfg.getBoolean("Modules.Environment.MonsterBlocking");
 		}
@@ -63,6 +65,9 @@ public class Global {
 
 		worldsCFG.put(w.getName(), settings);
 		w.setSpawnFlags(!monster, !animal);
+		
+		String value = String.valueOf(!fire);
+		w.setGameRuleValue("doFireTick", value);
 		
 	}
 
