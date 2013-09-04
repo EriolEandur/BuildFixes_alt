@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.8.2
+version: 1.8.3
 author: dags_
 
 commands:
@@ -19,6 +19,11 @@ commands:
       usage: /stencillist
       permission: BuildFixes.stencillist
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   schlist:
+      description: List WorlEdit schematics and subdirectories.
+      usage: /schlist <subdir>
+      permission: BuildFixes.schlist
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
     default: op
@@ -36,6 +41,9 @@ permissions:
     default: op
   BuildFixes.stencillist:
     description: Allow user to use /stencillist.
+    default: op
+  BuildFixes.schlist:
+    description: Allow user to use /schlist.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.

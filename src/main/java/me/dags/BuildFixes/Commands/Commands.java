@@ -125,6 +125,24 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 			}
+			if (c.equalsIgnoreCase("schlist")) {
+				if (cs.hasPermission("BuildFixes.schlist")) {
+					try {
+						String str = "null";
+						if (a.length == 1) {
+							str = a[0];
+						}
+						UtilMethods.getSchematics(p, str);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}					
+					return true;
+				} else {
+					p.sendMessage(scd
+							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					return true;
+				}
+			}
 		}
 		return false;
 	}

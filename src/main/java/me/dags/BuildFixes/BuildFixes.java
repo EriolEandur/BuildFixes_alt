@@ -83,6 +83,7 @@ public class BuildFixes extends JavaPlugin {
 			getCommand("get").setExecutor(new Commands());
 			getCommand("fbt").setExecutor(new Commands());
 			getCommand("stencillist").setExecutor(new Commands());
+			getCommand("schlist").setExecutor(new Commands());
 		}
 		if (environmentModule) {
 			this.getServer().getPluginManager()
