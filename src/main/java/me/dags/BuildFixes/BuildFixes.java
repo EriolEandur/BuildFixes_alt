@@ -11,7 +11,6 @@ import me.dags.BuildFixes.Configuration.MultiWorlds;
 import me.dags.BuildFixes.Listeners.BlockListener;
 import me.dags.BuildFixes.Listeners.EnvironmentListener;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -85,6 +84,7 @@ public class BuildFixes extends JavaPlugin {
 			getCommand("stencillist").setExecutor(new Commands());
 			getCommand("schlist").setExecutor(new Commands());
 			getCommand("bfworlds").setExecutor(new Commands());
+			getCommand("bfversion").setExecutor(new Commands());
 		}
 		if (environmentModule) {
 			this.getServer().getPluginManager()
@@ -93,9 +93,13 @@ public class BuildFixes extends JavaPlugin {
 	}
 
 	private void loadWorldSettings() {
-		for (World w : Bukkit.getServer().getWorlds()) {
-			worldDefaults(w);
-		}
+		getServer().getScheduler().runTask(this, new Runnable() {
+        	public void run() {
+        		for (World w : getServer().getWorlds()) {
+        			worldDefaults(w);
+        		}
+        	}
+		});
 	}
 
 	private void worldDefaults(World w) {

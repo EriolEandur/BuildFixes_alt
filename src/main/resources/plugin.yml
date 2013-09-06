@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.8.3
+version: 1.8.4
 author: dags_
 
 commands:
@@ -29,6 +29,11 @@ commands:
       usage: /bfworlds
       permission: BuildFixes.bfworlds
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   bfversion:
+      description: Get plugin info about BuildFixes.
+      usage: /bfworlds
+      permission: BuildFixes.bfversion
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
     default: op
@@ -44,6 +49,7 @@ permissions:
   BuildFixes.moderator:
     default: op
     children:
+      BuildFixes.version: true
       BuildFixes.fullbright: true
       BuildFixes.get: true
       BuildFixes.doors: true
@@ -61,6 +67,7 @@ permissions:
       BuildFixes.stencillist: true
       BuildFixes.schlist: true
       BuildFixes.bfworlds: true
+      BuildFixes.version: true
       BuildFixes.fullbright: true
       BuildFixes.get: true
       BuildFixes.doors: true
@@ -83,6 +90,9 @@ permissions:
     default: op
   BuildFixes.bfworlds:
     description: Allow user to use /bfworlds.
+    default: op
+  BuildFixes.bfversion:
+    description: Allow user to use /bfversion.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.

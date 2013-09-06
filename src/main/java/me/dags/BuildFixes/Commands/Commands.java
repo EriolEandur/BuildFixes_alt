@@ -89,8 +89,7 @@ public class Commands implements CommandExecutor {
 						}
 					}
 				} else {
-					p.sendMessage(scd
-							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					noPerm(p);
 					return true;
 				}
 			}
@@ -108,8 +107,7 @@ public class Commands implements CommandExecutor {
 						return true;
 					}
 				} else {
-					p.sendMessage(scd
-							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					noPerm(p);
 					return true;
 				}
 			}
@@ -126,8 +124,7 @@ public class Commands implements CommandExecutor {
 					}					
 					return true;
 				} else {
-					p.sendMessage(scd
-							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					noPerm(p);
 					return true;
 				}
 			}
@@ -153,8 +150,7 @@ public class Commands implements CommandExecutor {
 					}					
 					return true;
 				} else {
-					p.sendMessage(scd
-							+ "Sorry, that feature is disabled, or you don't have permission to use it!");
+					noPerm(p);
 					return true;
 				}
 			}
@@ -163,10 +159,27 @@ public class Commands implements CommandExecutor {
 					p.sendMessage(prim + "Worlds:");
 					p.sendMessage(ter + BuildFixes.worldsCFG.keySet().toString());
 					return true;
+				} else {
+					noPerm(p);
+					return true;
+				}
+			}
+			if (c.equalsIgnoreCase("bfversion")) {
+				if (cs.hasPermission("BuildFixes.bfversion")) {
+					UtilMethods.getVersion(p);
+					return true;	
+				} else {
+					noPerm(p);
+					return true;
 				}
 			}
 		}
 		return false;
+	}
+	
+	private void noPerm(Player p) {
+		p.sendMessage(scd
+				+ "Sorry, that feature is disabled, or you don't have permission to use it!");
 	}
 	
 	private static boolean isInt(String s) {

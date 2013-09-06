@@ -11,6 +11,7 @@ import java.util.Arrays;
 import me.dags.BuildFixes.BuildFixes;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.ChatPaginator;
 import org.bukkit.util.ChatPaginator.ChatPage;
@@ -123,6 +124,16 @@ public class UtilMethods {
 
 	private static String getPluginsDir() {
 		return instance.getDataFolder().getParent();
+	}
+	
+	public static void getVersion(Player p) {
+		PluginDescriptionFile plug = BuildFixes.inst().getDescription();
+		String pref = scd + "|---[";
+		String suf = scd + "]---|";
+		
+		p.sendMessage(pref + prim + plug.getFullName() + suf);
+		p.sendMessage(scd + "Version: " + prim + plug.getVersion());
+		p.sendMessage(scd + "Author: " + prim + plug.getAuthors());
 	}
 
 }
