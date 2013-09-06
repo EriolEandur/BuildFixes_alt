@@ -7,6 +7,8 @@ import static me.dags.BuildFixes.BuildFixes.worldsCFG;
 
 import java.io.IOException;
 
+import me.dags.BuildFixes.BuildFixes;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -114,7 +116,11 @@ public class Commands implements CommandExecutor {
 			if (c.equalsIgnoreCase("stencillist")) {
 				if (cs.hasPermission("BuildFixes.stencillist")) {
 					try {
-						UtilMethods.getStencils(p);
+						int i = 1;
+						if (a.length == 1) {
+							i = getInt(a[0]);
+						}
+						UtilMethods.getStencils(p, i);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}					
@@ -128,11 +134,20 @@ public class Commands implements CommandExecutor {
 			if (c.equalsIgnoreCase("schlist")) {
 				if (cs.hasPermission("BuildFixes.schlist")) {
 					try {
+						int i = 1;
 						String str = "null";
 						if (a.length == 1) {
-							str = a[0];
+							if(isInt(a[0])) {
+								i = getInt(a[0]);
+							} else {
+								str = a[0];
+							}
 						}
-						UtilMethods.getSchematics(p, str);
+						if (a.length == 2) {
+							str = a[0];
+							i = getInt(a[1]);
+						}
+						UtilMethods.getSchematics(p, str, i);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}					
@@ -143,8 +158,34 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 			}
+			if (c.equalsIgnoreCase("bfworlds")) {
+				if (cs.hasPermission("BuildFixes.bfworlds")) {
+					p.sendMessage(prim + "Worlds:");
+					p.sendMessage(ter + BuildFixes.worldsCFG.keySet().toString());
+					return true;
+				}
+			}
 		}
 		return false;
+	}
+	
+	private static boolean isInt(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	private static Integer getInt(String s) {
+		int i = 1;
+		try {
+			i = Integer.parseInt(s);
+		} catch(NumberFormatException e) {
+			i = 1;
+		}
+		return i;
 	}
 
 }

@@ -6,11 +6,14 @@ import static me.dags.BuildFixes.BuildFixes.ter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import me.dags.BuildFixes.BuildFixes;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.ChatPaginator;
+import org.bukkit.util.ChatPaginator.ChatPage;
 
 /**
  * 
@@ -21,30 +24,37 @@ public class UtilMethods {
 
 	public static JavaPlugin instance = (JavaPlugin) BuildFixes.inst();
 
-	public static void getStencils(Player p) throws IOException {
+	public static void getStencils(Player p, Integer i) throws IOException {
 
-		File folder = new File(getPluginsDir() + "/VoxelSniper/stencillists");
+		File folder = new File(getPluginsDir() + "/VoxelSniper/stencilLists");
 
 		if (!folder.exists()) {
 			p.sendMessage(ter
-					+ "VoxelSniper's stencilList folder cannot be found!");
+					+ "VoxelSniper's StencilList folder cannot be found!");
 			return;
 		} else {
 			String[] contents = folder.list();
+			Arrays.sort(contents);
 			if (contents.length != 0) {
 				boolean foundFiles = false;
-				p.sendMessage(prim + "|--------[StencilList Search]--------|");
-				p.sendMessage(scd + "Stencil Lists:");
+				
+				StringBuilder text = new StringBuilder();
+				text.append(scd + "Stencil Lists:" + "\n");
+				
 				for (String s : contents) {
 					if (s.endsWith(".txt")) {
 						String shorter = s.replace(".txt", "");
-						p.sendMessage(ter + shorter);
+						text.append(ter + shorter + "\n");
 						foundFiles = true;
 					}
 				}
 				if (!foundFiles) {
-					p.sendMessage(ter + "-");
+					text.append(ter + "-" + "\n");
 				}
+				
+				String header = (prim + "|--------[StencilList Search]--------|");
+				chatPages(p, text, i, header);
+
 				return;
 			} else {
 				p.sendMessage(ter + "Directory is empty!");
@@ -54,7 +64,7 @@ public class UtilMethods {
 
 	}
 
-	public static void getSchematics(Player p, String str) throws IOException {
+	public static void getSchematics(Player p, String str, Integer i) throws IOException {
 		String ext = "";
 		if (!str.equals("null")) {
 			ext = "/" + str;
@@ -65,39 +75,50 @@ public class UtilMethods {
 			return;
 		} else {
 			String[] contents = folder.list();
-
+			Arrays.sort(contents);
+			
 			if (contents.length != 0) {
 				boolean foundDir = false;
 				boolean foundFiles = false;
-				p.sendMessage(prim + "|--------[Schematics Search]--------|");
-				p.sendMessage(scd + "SubDirectories:");
+				
+				StringBuilder text = new StringBuilder();
+				
+				text.append(scd + "SubDirectories:" + "\n");
 				for (String s : contents) {
 					if (!s.contains(".")) {
-						p.sendMessage(ter + s + "/");
+						text.append(ter + s +"/" + "\n");
 						foundDir = true;
 					}
 				}
 				if (!foundDir) {
-					p.sendMessage(ter + "-");
+					text.append(ter + "-" + "\n");
 				}
-
-				p.sendMessage(scd + "Files:");
+				
+				text.append(scd + "Files:" + "\n");
 				for (String s : contents) {
 					if (s.contains(".")) {
-						p.sendMessage(ter + s);
+						text.append(ter + s + "\n");
 						foundFiles = true;
 					}
 				}
 				if (!foundFiles) {
-					p.sendMessage(ter + "-");
+					text.append(ter + "-" + "\n");
 				}
-
+				
+				String header = (prim + "|--------[Schematics Search]--------|");
+				chatPages(p, text, i, header);
 				return;
 			} else {
 				p.sendMessage(ter + "Directory is empty!");
 				return;
 			}
 		}
+	}
+	
+	private static void chatPages(Player p, StringBuilder text, Integer  i, String header) {
+		ChatPage page = ChatPaginator.paginate(text.toString(), i, ChatPaginator.AVERAGE_CHAT_PAGE_WIDTH, 16);
+		p.sendMessage(header + " [" + page.getPageNumber() + "/" + page.getTotalPages() + "]");
+		p.sendMessage(page.getLines());
 	}
 
 	private static String getPluginsDir() {

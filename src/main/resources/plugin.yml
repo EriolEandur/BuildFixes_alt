@@ -24,6 +24,11 @@ commands:
       usage: /schlist <subdir>
       permission: BuildFixes.schlist
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   bfworlds:
+      description: List all worlds that buildfixes has loaded settings for.
+      usage: /bfworlds
+      permission: BuildFixes.bfworlds
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
     default: op
@@ -36,6 +41,37 @@ permissions:
       BuildFixes.logs: true
       BuildFixes.mushrooms: true
       BuildFixes.slabs: true
+  BuildFixes.moderator:
+    default: op
+    children:
+      BuildFixes.fullbright: true
+      BuildFixes.get: true
+      BuildFixes.doors: true
+      BuildFixes.furnace: true
+      BuildFixes.grass: true
+      BuildFixes.logs: true
+      BuildFixes.mushrooms: true
+      BuildFixes.slabs: true
+      BuildFixes.stencillist: true
+      BuildFixes.schlist: true
+      BuildFixes.heads: true
+  BuildFixes.*:
+    default: op
+    children:
+      BuildFixes.stencillist: true
+      BuildFixes.schlist: true
+      BuildFixes.bfworlds: true
+      BuildFixes.fullbright: true
+      BuildFixes.get: true
+      BuildFixes.doors: true
+      BuildFixes.eggs: true
+      BuildFixes.furnace: true
+      BuildFixes.grass: true
+      BuildFixes.logs: true
+      BuildFixes.mushrooms: true
+      BuildFixes.slabs: true
+      BuildFixes.heads: true
+      BuildFixes.eggInteract: true
   BuildFixes.fullbright:
     description: Allow user to use /fb.
     default: op
@@ -44,6 +80,9 @@ permissions:
     default: op
   BuildFixes.schlist:
     description: Allow user to use /schlist.
+    default: op
+  BuildFixes.bfworlds:
+    description: Allow user to use /bfworlds.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.
