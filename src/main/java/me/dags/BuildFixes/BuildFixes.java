@@ -83,8 +83,7 @@ public class BuildFixes extends JavaPlugin {
 			getCommand("fbt").setExecutor(new Commands());
 			getCommand("stencillist").setExecutor(new Commands());
 			getCommand("schlist").setExecutor(new Commands());
-			getCommand("bfworlds").setExecutor(new Commands());
-			getCommand("bfversion").setExecutor(new Commands());
+			getCommand("bf").setExecutor(new Commands());
 		}
 		if (environmentModule) {
 			this.getServer().getPluginManager()
@@ -102,7 +101,7 @@ public class BuildFixes extends JavaPlugin {
 		});
 	}
 
-	private void worldDefaults(World w) {
+	public void worldDefaults(World w) {
 		if(multiWorlds){
 			ConfigUtil cfg = new ConfigUtil(this, w.getName());
 
@@ -110,10 +109,8 @@ public class BuildFixes extends JavaPlugin {
 			cfg.saveWorldConfig();
 
 			MultiWorlds.multiWorld(w);
-			System.out.print("[BuildFixes] is using MultiWorld settings for world: " + w.getName());
 		} else {
 			Global.config(w);
-			System.out.print("[BuildFixes] is using Global settings for world: " + w.getName());
 		}
 	}
 

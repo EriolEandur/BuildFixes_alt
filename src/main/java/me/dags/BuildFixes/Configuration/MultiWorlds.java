@@ -76,5 +76,7 @@ public class MultiWorlds {
 		
 		String value = String.valueOf(!fire);
 		w.setGameRuleValue("doFireTick", value);
+		
+		System.out.print("[BuildFixes] is using MultiWorld settings for world: " + w.getName());
 	}
 }

@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import me.dags.BuildFixes.BuildFixes;
 
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,7 +35,7 @@ public class Commands implements CommandExecutor {
 				if (cs.hasPermission("BuildFixes.get")
 						&& worldsCFG.get(w.getName()).get(4)) {
 					if (a.length == 0) {
-						p.sendMessage(ChatColor.GRAY
+						p.sendMessage(ter
 								+ "/get [doors], [egg], [furnaces], [grass], [head], [logs], [mushrooms], [slabs #]");
 						return true;
 					}
@@ -154,20 +153,23 @@ public class Commands implements CommandExecutor {
 					return true;
 				}
 			}
-			if (c.equalsIgnoreCase("bfworlds")) {
-				if (cs.hasPermission("BuildFixes.bfworlds")) {
-					p.sendMessage(prim + "Worlds:");
-					p.sendMessage(ter + BuildFixes.worldsCFG.keySet().toString());
-					return true;
-				} else {
-					noPerm(p);
-					return true;
-				}
-			}
-			if (c.equalsIgnoreCase("bfversion")) {
-				if (cs.hasPermission("BuildFixes.bfversion")) {
-					UtilMethods.getVersion(p);
-					return true;	
+			if (c.equalsIgnoreCase("bf")) {
+				if (cs.hasPermission("BuildFixes.bfinfo")) {
+					if (a.length == 0) {
+						p.sendMessage(ter + "/bf [worlds], [version]");
+						return true;
+					}
+					if (a.length == 1) {
+						if (a[0].equalsIgnoreCase("worlds")) {
+							p.sendMessage(prim + "Worlds:");
+							p.sendMessage(ter + BuildFixes.worldsCFG.keySet().toString());
+							return true;
+						}
+						if (a[0].equalsIgnoreCase("version")) {
+							UtilMethods.getVersion(p);
+							return true;	
+						}
+					}
 				} else {
 					noPerm(p);
 					return true;

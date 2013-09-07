@@ -131,9 +131,9 @@ public class UtilMethods {
 		String pref = scd + "|---[";
 		String suf = scd + "]---|";
 		
-		p.sendMessage(pref + prim + plug.getFullName() + suf);
+		p.sendMessage(pref + prim + plug.getName() + suf);
 		p.sendMessage(scd + "Version: " + prim + plug.getVersion());
-		p.sendMessage(scd + "Author: " + prim + plug.getAuthors());
+		p.sendMessage(scd + "Author(s): " + prim + plug.getAuthors());
 	}
 
 }

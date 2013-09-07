@@ -69,6 +69,8 @@ public class Global {
 		String value = String.valueOf(!fire);
 		w.setGameRuleValue("doFireTick", value);
 		
+		System.out.print("[BuildFixes] is using Global settings for world: " + w.getName());
+		
 	}
 
 }

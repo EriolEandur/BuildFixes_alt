@@ -24,15 +24,10 @@ commands:
       usage: /schlist <subdir>
       permission: BuildFixes.schlist
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
-   bfworlds:
-      description: List all worlds that buildfixes has loaded settings for.
-      usage: /bfworlds
-      permission: BuildFixes.bfworlds
-      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
-   bfversion:
-      description: Get plugin info about BuildFixes.
-      usage: /bfworlds
-      permission: BuildFixes.bfversion
+   bf:
+      description: Info command for buildfixes.
+      usage: /bf [worlds], [version]
+      permission: BuildFixes.bfinfo
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
@@ -66,8 +61,7 @@ permissions:
     children:
       BuildFixes.stencillist: true
       BuildFixes.schlist: true
-      BuildFixes.bfworlds: true
-      BuildFixes.version: true
+      BuildFixes.bfinfo: true
       BuildFixes.fullbright: true
       BuildFixes.get: true
       BuildFixes.doors: true
@@ -88,11 +82,8 @@ permissions:
   BuildFixes.schlist:
     description: Allow user to use /schlist.
     default: op
-  BuildFixes.bfworlds:
+  BuildFixes.bfinfo:
     description: Allow user to use /bfworlds.
-    default: op
-  BuildFixes.bfversion:
-    description: Allow user to use /bfversion.
     default: op
   BuildFixes.get:
     description: Allow user to use /get.
