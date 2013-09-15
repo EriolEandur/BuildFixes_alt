@@ -11,6 +11,11 @@ import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * 
+ * @author dags_ <dags@dags.me>
+ */
+
 public class Global {
 	
 	public static JavaPlugin instance = (JavaPlugin) BuildFixes.inst();

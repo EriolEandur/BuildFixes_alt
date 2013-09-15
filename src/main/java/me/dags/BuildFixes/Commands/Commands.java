@@ -200,6 +200,10 @@ public class Commands implements CommandExecutor {
 		} catch(NumberFormatException e) {
 			i = 1;
 		}
+		
+		if (i <= 0) {
+			i = 1;
+		}
 		return i;
 	}
 
