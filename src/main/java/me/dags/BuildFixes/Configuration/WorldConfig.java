@@ -3,8 +3,7 @@ package me.dags.BuildFixes.Configuration;
 import static me.dags.BuildFixes.BuildFixes.multiWorlds;
 import static me.dags.BuildFixes.BuildFixes.worlds;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import me.dags.BuildFixes.BuildFixes;
 
@@ -37,13 +36,13 @@ public class WorldConfig {
     private boolean animal = false;
     private boolean monster = false;
 
-    private List<Integer> noPhysList = new ArrayList<Integer>();
+    private HashSet<Integer> noPhysList = new HashSet<Integer>();
 
     public WorldConfig(World w) {
 
         JavaPlugin instance = (JavaPlugin) BuildFixes.inst();
         Configuration cfg;
-        String output = "null";
+        String output;
 
         if (BuildFixes.multiWorlds) {
             ConfigUtil cu = new ConfigUtil(instance, w.getName());
@@ -78,8 +77,13 @@ public class WorldConfig {
             monster = cfg.getBoolean("Modules.Environment.MonsterBlocking");
         }
 
-        for (Integer i : cfg.getIntegerList("NoPhysicsList")) {
-            noPhysList.add(i);
+        for (Object o : cfg.getList("NoPhysicsList")) {
+            if (isInt(o.toString())) {
+                noPhysList.add(Integer.valueOf(o.toString()));
+            } else {
+                System.out.print("[BuildFixes] (NoPhysicsList) " + w.getName()
+                        + ": " + o.toString() + " is not an integer!");
+            }
         }
 
         w.setSpawnFlags(!monster, !animal);
@@ -89,6 +93,15 @@ public class WorldConfig {
 
         System.out.print("[BuildFixes] is using " + output
                 + " settings for world: " + w.getName());
+    }
+
+    private static boolean isInt(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     public static WorldConfig getWorldConf(World w) {
@@ -160,7 +173,7 @@ public class WorldConfig {
         return weather;
     }
 
-    public List<Integer> noPhysList() {
+    public HashSet<Integer> noPhysList() {
         return noPhysList;
     }
 
