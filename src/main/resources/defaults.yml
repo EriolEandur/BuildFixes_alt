@@ -9,6 +9,11 @@ Modules:
     Enable: true
     GetItem: true
     Fullbright: true
+  Utilities:
+    Enable: true
+    SchematicsBrowser: true
+    StencListBrowser: true
+    BuildFixesInfo: true
   Environment:
     Enable: true
     DecayBlocking: true
@@ -17,3 +22,13 @@ Modules:
     FireSpreadBlocking: true
     AnimalBlocking: true
     MonsterBlocking: true
+NoPhysicsList:
+  - 27
+  - 28
+  - 34
+  - 50
+  - 65
+  - 66
+  - 122
+  - 140
+  - 157

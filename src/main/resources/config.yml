@@ -11,6 +11,11 @@ Modules:
     Enable: true
     GetItem: true
     Fullbright: true
+  Utilities:
+    Enable: true
+    SchematicsBrowser: true
+    StencListBrowser: true
+    BuildFixesInfo: true
   Environment:
     Enable: true
     DecayBlocking: true
@@ -19,6 +24,9 @@ Modules:
     FireSpreadBlocking: true
     AnimalBlocking: true
     MonsterBlocking: true
+  MOTD:
+    Enable: false
+    Message: '%fA %7minecraft %8server!'
 NoPhysicsList:
   - 27
   - 28

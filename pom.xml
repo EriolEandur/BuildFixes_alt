@@ -5,7 +5,7 @@
 
 	<groupId>me.dags</groupId>
 	<artifactId>BuildFixes</artifactId>
-	<version>1.8.4</version>
+	<version>1.9.0</version>
 	<packaging>jar</packaging>
 
 	<url>http://dev.bukkit.org</url>
@@ -24,7 +24,7 @@
 	 <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.6.2-R0.1-SNAPSHOT</version>
+      <version>1.6.4-R0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
