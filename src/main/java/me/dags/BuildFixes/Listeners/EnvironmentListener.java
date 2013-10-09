@@ -14,12 +14,19 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.event.world.WorldLoadEvent;
 
 /**
  * @author dags_ <dags@dags.me>
  */
 
 public class EnvironmentListener implements Listener {
+
+    @EventHandler (priority = EventPriority.LOW)
+    private void onWorldLoad(WorldLoadEvent event) {
+        World w = event.getWorld();
+        getWorldConf(w);
+    }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     private void onWeatherChange(WeatherChangeEvent event) {
@@ -43,7 +50,7 @@ public class EnvironmentListener implements Listener {
     private void onBlockFade(BlockFadeEvent event) {
         World w = event.getBlock().getWorld();
 
-        if (event.getBlock().getType().equals(Material.FIRE)) {
+        if (!event.getBlock().getType().equals(Material.FIRE)) {
             event.setCancelled(getWorldConf(w).decay());
         }
     }

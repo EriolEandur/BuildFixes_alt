@@ -45,14 +45,18 @@ public class ConfigUtil {
         }
         worldContents = YamlConfiguration.loadConfiguration(worldFile);
 
-        InputStream defConfigStream = plugin.getResource("defaults.yml");
+        InputStream defConfigStream = plugin.getResource("config.yml");
         if (defConfigStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+
             File mainConfig = new File(plugin.getDataFolder(), "config.yml");
 
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(mainConfig);
+            if (mainConfig.exists()) {
+                defConfig = YamlConfiguration.loadConfiguration(mainConfig);
+            }
+
             defConfig.set("MultiWorldSupport", null);
             defConfig.set("Modules.MOTD", null);
-
             worldContents.setDefaults(defConfig);
         }
     }

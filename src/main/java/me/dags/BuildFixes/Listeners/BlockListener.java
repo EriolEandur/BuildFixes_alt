@@ -2,6 +2,7 @@ package me.dags.BuildFixes.Listeners;
 
 import me.dags.BuildFixes.Configuration.WorldConfig;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -60,12 +61,15 @@ public class BlockListener implements Listener {
             //
             if (getConf(p).logs()) {
                 //
-                Block b = event.getBlockPlaced();
-                MaterialData md = p.getItemInHand().getData();
-                BlockState bs = b.getState();
+                if (p.getItemInHand().getDurability() >= 12
+                        && p.getItemInHand().getDurability() <= 15) {
+                    Block b = event.getBlockPlaced();
+                    MaterialData md = p.getItemInHand().getData();
+                    BlockState bs = b.getState();
 
-                bs.setData(md);
-                bs.update();
+                    bs.setData(md);
+                    bs.update();
+                }
             }
         }
     }

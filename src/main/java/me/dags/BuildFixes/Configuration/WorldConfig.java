@@ -81,7 +81,7 @@ public class WorldConfig {
             if (isInt(o.toString())) {
                 noPhysList.add(Integer.valueOf(o.toString()));
             } else {
-                System.out.print("[BuildFixes] (NoPhysicsList) " + w.getName()
+                BuildFixes.log("(NoPhysicsList) " + w.getName()
                         + ": " + o.toString() + " is not an integer!");
             }
         }
@@ -91,7 +91,7 @@ public class WorldConfig {
         String value = String.valueOf(!fire);
         w.setGameRuleValue("doFireTick", value);
 
-        System.out.print("[BuildFixes] is using " + output
+        BuildFixes.log("Using " + output
                 + " settings for world: " + w.getName());
     }
 

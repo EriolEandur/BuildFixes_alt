@@ -1,6 +1,7 @@
 package me.dags.BuildFixes;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import me.dags.BuildFixes.Commands.Commands;
 import me.dags.BuildFixes.Configuration.ConfigUtil;
@@ -9,6 +10,7 @@ import me.dags.BuildFixes.Listeners.BlockListener;
 import me.dags.BuildFixes.Listeners.EnvironmentListener;
 import me.dags.BuildFixes.Listeners.PingListener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -103,7 +105,14 @@ public class BuildFixes extends JavaPlugin {
         if (bfMotd) {
             String s = this.getConfig().getString("Modules.MOTD.Message");
             motd = s.replace("%", "§");
-            System.out.print("[BuildFixes] MOTD set!");
+            log("MOTD set!");
         }
+    }
+
+    public static void log(String msg) {
+        Logger logger = Bukkit.getLogger();
+        String pref = "[BuildFixes] ";
+
+        logger.info(pref + msg);
     }
 }
