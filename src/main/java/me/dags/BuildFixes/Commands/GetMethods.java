@@ -19,7 +19,7 @@ import org.bukkit.inventory.meta.SkullMeta;
  */
 
 public class GetMethods {
-    
+
     public static void getDoors(Player p) {
         if (p.hasPermission("BuildFixes.doors")) {
             p.getInventory().addItem(new ItemStack(Material.WOODEN_DOOR, 64));
