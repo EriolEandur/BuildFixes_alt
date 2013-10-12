@@ -90,6 +90,15 @@ public class Commands implements CommandExecutor {
                             return true;
                         }
                     }
+                    if ((a[0].equalsIgnoreCase("armor"))) {
+                        if (a.length == 2) {
+                            GetMethods.getArmor(p, a[1]);
+                            return true;
+                        } else {
+                            p.sendMessage(scd + "/get armor <hexcode>");
+                            return true;
+                        }
+                    }
                 } else {
                     noPerm(p);
                     return true;
