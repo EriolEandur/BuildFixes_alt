@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 /**
@@ -108,6 +109,30 @@ public class GetMethods {
                 p.sendMessage(prim + "Given slabs!");
             } else {
                 p.sendMessage(scd + "/get slabs [0-16]");
+            }
+        } else {
+            p.sendMessage(scd
+                    + "Sorry, you do not have permission to use that Command!");
+        }
+    }
+    
+    public static void getArmor(Player p, String color) {
+        if (p.hasPermission("BuildFixes.armor")) {
+            ArrayList<ItemStack> armor = new ArrayList();
+            armor.add(new ItemStack(Material.LEATHER_HELMET));
+            armor.add(new ItemStack(Material.LEATHER_CHESTPLATE));
+            armor.add(new ItemStack(Material.LEATHER_LEGGINGS));
+            armor.add(new ItemStack(Material.LEATHER_BOOTS));
+            try {
+                java.awt.Color desiredcolor = java.awt.Color.decode(color);
+                for (ItemStack is : armor) {
+                    LeatherArmorMeta meta = (LeatherArmorMeta) is.getItemMeta();
+                    meta.setColor(org.bukkit.Color.fromRGB(desiredcolor.getRed(), desiredcolor.getGreen(), desiredcolor.getBlue()));
+                    is.setItemMeta(meta);
+                    p.getInventory().addItem(is);
+                }
+            } catch (NumberFormatException ex) {
+                p.sendMessage(scd + "The color `" + color + "` is not valid");
             }
         } else {
             p.sendMessage(scd
