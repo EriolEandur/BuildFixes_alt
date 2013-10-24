@@ -1,6 +1,6 @@
 name: BuildFixes
 main: me.dags.BuildFixes.BuildFixes
-version: 1.8.4
+version: 1.9.0
 author: dags_
 
 commands:
@@ -56,6 +56,7 @@ permissions:
       BuildFixes.stencillist: true
       BuildFixes.schlist: true
       BuildFixes.heads: true
+      BuildFixes.armor: true
   BuildFixes.*:
     default: op
     children:
@@ -72,6 +73,7 @@ permissions:
       BuildFixes.mushrooms: true
       BuildFixes.slabs: true
       BuildFixes.heads: true
+      BuildFixes.armor: true
       BuildFixes.eggInteract: true
   BuildFixes.fullbright:
     description: Allow user to use /fb.
@@ -111,6 +113,9 @@ permissions:
     default: op
   BuildFixes.heads:
     description: Allow user to give themselves a player's head!
+    default: op
+  BuildFixes.armor:
+    description: Allow user to give themselves colored leather armor
     default: op
   BuildFixes.eggInteract:
     description: Allow user to interact with Dragon Eggs.
