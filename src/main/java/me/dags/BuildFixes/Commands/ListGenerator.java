@@ -84,13 +84,28 @@ public class ListGenerator {
         List<String> matches = new ArrayList<String>();
         String[] path = getFilePath(s);
 
+        Boolean exact = false;
+
+        if (Character.isDigit(path[1].charAt(path[1].length() - 1))) {
+            exact = true;
+        }
+
         File folder = new File(getVoxelDir() + "/stencils/" + path[0]);
 
         if (folder.exists()) {
             for (File f : folder.listFiles()) {
-                if (f.getPath().contains(path[1])) {
+                if (exact) {
                     if (f.getName().endsWith(".vstencil")) {
-                        matches.add(path[0] + f.getName().replace(".vstencil", ""));
+                        if (f.getName().equalsIgnoreCase(path[1] + ".vstencil")) {
+                            matches.add(path[0] + f.getName().replace(".vstencil", ""));
+                            break;
+                        }
+                    }
+                } else {
+                    if (f.getName().endsWith(".vstencil")) {
+                        if (f.getPath().contains(path[1])) {
+                            matches.add(path[0] + f.getName().replace(".vstencil", ""));
+                        }
                     }
                 }
             }
