@@ -27,6 +27,7 @@ public class WorldConfig {
 
     private boolean schem = false;
     private boolean stencil = false;
+    private boolean stencilGen = false;
     private boolean bfinfo = false;
 
     private boolean decay = false;
@@ -66,6 +67,7 @@ public class WorldConfig {
         if (cfg.getBoolean("Modules.Utilities.Enable")) {
             schem = cfg.getBoolean("Modules.Utilities.SchematicsBrowser");
             stencil = cfg.getBoolean("Modules.Utilities.StencListBrowser");
+            stencilGen = cfg.getBoolean("Modules.Utilities.StencListGenerator");
             bfinfo = cfg.getBoolean("Modules.Utilities.BuildFixesInfo");
         }
         if (cfg.getBoolean("Modules.Environment.Enable")) {
@@ -155,6 +157,10 @@ public class WorldConfig {
 
     public boolean stenList() {
         return stencil;
+    }
+
+    public boolean stenGen() {
+        return stencilGen;
     }
 
     public boolean bfInfo() {

@@ -190,6 +190,31 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
             }
+            if (c.equalsIgnoreCase("sl")) {
+                if (p.hasPermission("BuildFixes.addstencils")
+                        && getConf(p).stenGen()) {
+                    if (a.length == 1) {
+                        if (a[0].equalsIgnoreCase("save")) {
+                            ListGenerator.saveList(p);
+                            return true;
+                        }
+                    }
+                    if (a.length >= 2) {
+                        if (a[0].equalsIgnoreCase("create")) {
+                            String name = a[1];
+                            ListGenerator.createNewList(p, name);
+                            return true;
+                        }
+                        if (a[0].equalsIgnoreCase("add")) {
+                            ListGenerator.addToList(p, a);
+                            return true;
+                        }
+                    }
+                } else {
+                    noPerm(p);
+                    return true;
+                }
+            }
         }
         return false;
     }

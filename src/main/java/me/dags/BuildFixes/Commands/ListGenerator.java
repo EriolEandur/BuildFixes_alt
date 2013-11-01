@@ -1,8 +1,7 @@
 package me.dags.BuildFixes.Commands;
 
 import me.dags.BuildFixes.BuildFixes;
-import me.dags.BuildFixes.Commands.SteniclManager.StencilList;
-import org.bukkit.Bukkit;
+import me.dags.BuildFixes.Commands.StencilListBuilder.StencilListBuilder;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -12,6 +11,7 @@ import java.util.List;
 
 import static me.dags.BuildFixes.BuildFixes.prim;
 import static me.dags.BuildFixes.BuildFixes.scd;
+import static me.dags.BuildFixes.BuildFixes.ter;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -19,11 +19,11 @@ import static me.dags.BuildFixes.BuildFixes.scd;
 
 public class ListGenerator {
 
-    private static HashMap<String, StencilList> stencilLists = new HashMap<String, StencilList>();
+    public static HashMap<String, StencilListBuilder> stencilLists = new HashMap<String, StencilListBuilder>();
 
     public static void createNewList(Player p, String s) {
         if (!s.contains("/")) {
-            StencilList sl = new StencilList();
+            StencilListBuilder sl = new StencilListBuilder();
             sl.setName(s);
 
             stencilLists.put(p.getName(), sl);
@@ -36,38 +36,51 @@ public class ListGenerator {
 
     public static void saveList(Player p) {
         if (stencilLists.containsKey(p.getName())) {
-            StencilList sl = stencilLists.get(p.getName());
-            sl.writeToFile();
+            StencilListBuilder sl = stencilLists.get(p.getName());
 
-            p.sendMessage(prim + "Your stencil list has been saved!");
-            p.sendMessage(scd + "Name: " + prim + sl.getName());
-            p.sendMessage(scd + "Entries: " + prim + sl.getStencils().size());
+            if (sl.writeToFile()) {
+                p.sendMessage(prim + "Your stencil list has been saved!");
+                p.sendMessage(scd + "Name: " + prim + sl.getName());
+                p.sendMessage(scd + "Stencils: " + prim + sl.getStencils().size());
+
+                stencilLists.remove(p.getName());
+            } else {
+                p.sendMessage(ter + "A StencilList called " + scd + sl.getName() + ter + " already exists!");
+                p.sendMessage(ter + "Overwriting existing stencilLists is currently blocked. " +
+                        "The server owner must first delete the existing list if you wish to continue!");
+            }
         } else {
-            p.sendMessage(scd + "You haven't created a new Stencil List yet!");
+            p.sendMessage(ter + "You haven't created a new Stencil List yet!");
         }
     }
 
     public static void addToList(Player p, String[] s) {
         if (stencilLists.containsKey(p.getName())) {
-            StencilList sl = stencilLists.get(p.getName());
+            StencilListBuilder sl = stencilLists.get(p.getName());
 
+            p.sendMessage(ter + "Adding matches...");
             for (String path : s) {
                 if (!path.equals("add")) {
-                    for (String match : findMatches(path)) {
+                    for (String match : findMatches(p, path)) {
                         sl.addStencil(match);
                     }
                 }
             }
             stencilLists.put(p.getName(), sl);
+
+            String st = " stencils";
+            if (sl.getStencils().size() == 1) {
+                st = " stencil";
+            }
+
             p.sendMessage(prim + "Your list currently has "
-                    + scd + sl.getStencils().size() + prim + " stencils!");
-            p.sendMessage(scd + "Changes ready to be saved!");
+                    + scd + sl.getStencils().size() + prim + st + "!");
         } else {
-            p.sendMessage(scd + "You haven't created a new Stencil List yet!");
+            p.sendMessage(ter + "You haven't created a new Stencil List yet!");
         }
     }
 
-    public static List<String> findMatches(String s) {
+    public static List<String> findMatches(Player p, String s) {
         List<String> matches = new ArrayList<String>();
         String[] path = getFilePath(s);
 
@@ -81,6 +94,15 @@ public class ListGenerator {
                     }
                 }
             }
+        }
+        if (matches.isEmpty()) {
+            p.sendMessage(scd + "No matches found for: " + ter + s);
+        } else {
+            String m = " matches ";
+            if (matches.size() == 1) {
+                m = " match ";
+            }
+            p.sendMessage(scd + matches.size() + prim + m + "found for: " + ter + s);
         }
         return matches;
     }
@@ -111,7 +133,7 @@ public class ListGenerator {
                 path[1] = split[length];
             }
         } else {
-            path[0] = s;
+            path[0] = "";
             path[1] = s;
         }
         return path;

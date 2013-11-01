@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import me.dags.BuildFixes.Commands.Commands;
+import me.dags.BuildFixes.Commands.ListGenerator;
 import me.dags.BuildFixes.Configuration.ConfigUtil;
 import me.dags.BuildFixes.Configuration.WorldConfig;
 import me.dags.BuildFixes.Listeners.BlockListener;
@@ -27,9 +28,9 @@ public class BuildFixes extends JavaPlugin {
     public static boolean bfMotd;
     public static HashMap<String, WorldConfig> worlds = new HashMap<String, WorldConfig>();
     public static String motd = "A minecraft server!";
-    public static ChatColor prim = ChatColor.DARK_AQUA;
-    public static ChatColor scd = ChatColor.DARK_PURPLE;
-    public static ChatColor ter = ChatColor.GRAY;
+    public static String prim = ChatColor.DARK_AQUA.toString();
+    public static String scd = ChatColor.DARK_PURPLE.toString();
+    public static String ter = ChatColor.GRAY.toString();
 
     public BuildFixes() {
         super();
@@ -52,6 +53,7 @@ public class BuildFixes extends JavaPlugin {
     @Override
     public void onDisable() {
         worlds.clear();
+        ListGenerator.stencilLists.clear();
     }
 
     private void setupConfig() {
@@ -78,6 +80,7 @@ public class BuildFixes extends JavaPlugin {
         getCommand("stencillist").setExecutor(new Commands());
         getCommand("schlist").setExecutor(new Commands());
         getCommand("bf").setExecutor(new Commands());
+        getCommand("sl").setExecutor(new Commands());
     }
 
     private void findWorlds() {

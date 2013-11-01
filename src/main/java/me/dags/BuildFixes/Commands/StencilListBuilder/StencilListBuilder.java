@@ -14,12 +14,12 @@ import java.util.List;
  * @author dags_ <dags@dags.me>
  */
 
-public class StencilList {
+public class StencilListBuilder {
 
     private String name;
     private List<String> stencils;
 
-    public StencilList() {
+    public StencilListBuilder() {
         stencils = new ArrayList<String>();
     }
 
@@ -39,7 +39,7 @@ public class StencilList {
         return stencils;
     }
 
-    public void writeToFile() {
+    public boolean writeToFile() {
 
 
         try {
@@ -47,21 +47,26 @@ public class StencilList {
 
             if (!newList.exists()) {
                 newList.createNewFile();
+
+                FileWriter fw = new FileWriter(newList, true);
+                PrintWriter pw = new PrintWriter(fw);
+
+                Collections.sort(this.stencils);
+                for (String s : stencils) {
+                    pw.println(s);
+                }
+
+                pw.flush();
+                pw.close();
+
+                return true;
+            } else {
+                return false;
             }
-
-            FileWriter fw = new FileWriter(newList, true);
-            PrintWriter pw = new PrintWriter(fw);
-
-            Collections.sort(this.stencils);
-            for (String s : stencils) {
-                pw.println(s);
-            }
-
-            pw.flush();
-            pw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private static String getVoxelDir() {
