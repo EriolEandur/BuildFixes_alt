@@ -5,6 +5,7 @@ import static me.dags.BuildFixes.BuildFixes.scd;
 import static me.dags.BuildFixes.BuildFixes.ter;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -24,43 +25,58 @@ public class UtilMethods {
 
     public static JavaPlugin instance = (JavaPlugin) BuildFixes.inst();
 
-    public static void getStencils(Player p, Integer i) throws IOException {
-
-        File folder = new File(getPluginsDir() + "/VoxelSniper/stencilLists");
-
+    public static void voxelViewer(Player p, String str, Integer i) throws IOException {
+        String ext = "";
+        if (!str.equals("null")) {
+            ext = "/" + str;
+        }
+        File folder = new File(getPluginsDir() + "/VoxelSniper/" + ext);
         if (!folder.exists()) {
-            p.sendMessage(ter
-                    + "VoxelSniper's StencilList folder cannot be found!");
+            p.sendMessage(ter + "Folder cannot be found!");
         } else {
-            String[] contents = folder.list();
+            File[] contents = folder.listFiles();
             Arrays.sort(contents);
+
             if (contents.length != 0) {
+                boolean foundDir = false;
                 boolean foundFiles = false;
 
                 StringBuilder text = new StringBuilder();
-                text.append(scd + "Stencil Lists:" + "\n");
+                text.append(scd + "SubDirectories:" + "\n");
+                for (File f : contents) {
+                    if (f.isDirectory()) {
+                        text.append(ter + f.getName() + "/" + "\n");
+                        foundDir = true;
+                    }
+                }
+                if (!foundDir) {
+                    text.append(ter + "-" + "\n");
+                }
 
-                for (String s : contents) {
-                    if (s.endsWith(".txt")) {
-                        String shorter = s.replace(".txt", "");
-                        text.append(ter + shorter + "\n");
-                        foundFiles = true;
+                text.append(scd + "Files:" + "\n");
+                for (File f : contents) {
+                    if (f.isFile()) {
+                        if (f.getName().endsWith(".txt")
+                                || f.getName().endsWith(".vstencil")) {
+                            text.append(ter + f.getName() + "\n");
+                            foundFiles = true;
+                        }
                     }
                 }
                 if (!foundFiles) {
                     text.append(ter + "-" + "\n");
                 }
 
-                String header = (prim + "|--------[StencilList Search]--------|");
+
+                String header = (prim + "|--------[Voxel Viewer]--------|");
                 chatPages(p, text, i, header);
             } else {
                 p.sendMessage(ter + "Directory is empty!");
             }
         }
-
     }
 
-    public static void getSchematics(Player p, String str, Integer i) throws IOException {
+    public static void schematicsViewer(Player p, String str, Integer i) throws IOException {
         String ext = "";
         if (!str.equals("null")) {
             ext = "/" + str;

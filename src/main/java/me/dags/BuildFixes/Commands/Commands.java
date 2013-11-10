@@ -122,15 +122,30 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
             }
-            if (c.equalsIgnoreCase("stencillist")) {
-                if (cs.hasPermission("BuildFixes.stencillist")
-                        && getConf(p).stenList()) {
+            if (c.equalsIgnoreCase("vv")) {
+                if (cs.hasPermission("BuildFixes.voxelviewer")
+                        && getConf(p).schList()) {
                     try {
                         int i = 1;
+                        String str = "null";
                         if (a.length == 1) {
-                            i = getInt(a[0]);
+                            if (isInt(a[0])) {
+                                i = getInt(a[0]);
+                            } else {
+                                if (a[0].equalsIgnoreCase("stencillists")
+                                        || a[0].equalsIgnoreCase("stencillist")
+                                        || a[0].equalsIgnoreCase("list")) {
+                                    str = "stencilLists";
+                                } else {
+                                    str = a[0];
+                                }
+                            }
                         }
-                        UtilMethods.getStencils(p, i);
+                        if (a.length == 2) {
+                            str = a[0];
+                            i = getInt(a[1]);
+                        }
+                        UtilMethods.voxelViewer(p, str, i);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -157,7 +172,7 @@ public class Commands implements CommandExecutor {
                             str = a[0];
                             i = getInt(a[1]);
                         }
-                        UtilMethods.getSchematics(p, str, i);
+                        UtilMethods.schematicsViewer(p, str, i);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

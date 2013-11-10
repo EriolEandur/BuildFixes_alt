@@ -77,7 +77,7 @@ public class BuildFixes extends JavaPlugin {
     private void registerCommands() {
         getCommand("get").setExecutor(new Commands());
         getCommand("fbt").setExecutor(new Commands());
-        getCommand("stencillist").setExecutor(new Commands());
+        getCommand("vv").setExecutor(new Commands());
         getCommand("schlist").setExecutor(new Commands());
         getCommand("bf").setExecutor(new Commands());
         getCommand("sl").setExecutor(new Commands());
