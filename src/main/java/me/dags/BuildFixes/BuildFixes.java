@@ -1,21 +1,21 @@
 package me.dags.BuildFixes;
 
-import java.util.HashMap;
-import java.util.logging.Logger;
-
 import me.dags.BuildFixes.Commands.Commands;
-import me.dags.BuildFixes.Commands.ListGenerator;
 import me.dags.BuildFixes.Configuration.ConfigUtil;
 import me.dags.BuildFixes.Configuration.WorldConfig;
 import me.dags.BuildFixes.Listeners.BlockListener;
 import me.dags.BuildFixes.Listeners.EnvironmentListener;
 import me.dags.BuildFixes.Listeners.PingListener;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashMap;
+import java.util.logging.Logger;
+
+import static me.dags.BuildFixes.Commands.ListGenerator.stencilLists;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -53,7 +53,7 @@ public class BuildFixes extends JavaPlugin {
     @Override
     public void onDisable() {
         worlds.clear();
-        ListGenerator.stencilLists.clear();
+        stencilLists.clear();
     }
 
     private void setupConfig() {
@@ -79,8 +79,8 @@ public class BuildFixes extends JavaPlugin {
         getCommand("fbt").setExecutor(new Commands());
         getCommand("vv").setExecutor(new Commands());
         getCommand("schlist").setExecutor(new Commands());
-        getCommand("bf").setExecutor(new Commands());
         getCommand("sl").setExecutor(new Commands());
+        getCommand("bf").setExecutor(new Commands());
     }
 
     private void findWorlds() {

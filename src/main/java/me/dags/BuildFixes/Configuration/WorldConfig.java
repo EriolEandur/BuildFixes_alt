@@ -182,6 +182,4 @@ public class WorldConfig {
     public HashSet<Integer> noPhysList() {
         return noPhysList;
     }
-
-
 }

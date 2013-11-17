@@ -5,7 +5,7 @@
 
 	<groupId>me.dags</groupId>
 	<artifactId>BuildFixes</artifactId>
-	<version>1.9.2</version>
+	<version>1.9.3</version>
 	<packaging>jar</packaging>
 
 	<url>http://dev.bukkit.org</url>
@@ -139,7 +139,7 @@
 						<phase>compile</phase>
 						<configuration>
 							<tasks>
-								<copy file="${project.build.directory}/${project.build.finalName}.jar" tofile="${basedir}/dist/${project.build.finalName}.jar" />
+								<copy file="${project.build.directory}/${project.build.finalName}.jar" tofile="${basedir}/dist/${project.build.finalName}/${project.build.finalName}.jar" />
 							</tasks>
 						</configuration>
 						<goals>

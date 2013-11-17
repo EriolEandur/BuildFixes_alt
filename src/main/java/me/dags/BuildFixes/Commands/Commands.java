@@ -1,21 +1,17 @@
 package me.dags.BuildFixes.Commands;
 
-import static me.dags.BuildFixes.BuildFixes.prim;
-import static me.dags.BuildFixes.BuildFixes.scd;
-import static me.dags.BuildFixes.BuildFixes.ter;
-import static me.dags.BuildFixes.Configuration.WorldConfig.getWorldConf;
-
-import java.io.IOException;
-
-import me.dags.BuildFixes.BuildFixes;
 import me.dags.BuildFixes.Configuration.WorldConfig;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.io.IOException;
+
+import static me.dags.BuildFixes.BuildFixes.*;
+import static me.dags.BuildFixes.Configuration.WorldConfig.getWorldConf;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -182,29 +178,6 @@ public class Commands implements CommandExecutor {
                     return true;
                 }
             }
-            if (c.equalsIgnoreCase("bf")) {
-                if (cs.hasPermission("BuildFixes.bfinfo")
-                        && getConf(p).bfInfo()) {
-                    if (a.length == 0) {
-                        p.sendMessage(ter + "/bf [worlds], [version]");
-                        return true;
-                    }
-                    if (a.length == 1) {
-                        if (a[0].equalsIgnoreCase("worlds")) {
-                            p.sendMessage(prim + "Worlds:");
-                            p.sendMessage(ter + BuildFixes.worlds.keySet().toString());
-                            return true;
-                        }
-                        if (a[0].equalsIgnoreCase("version")) {
-                            UtilMethods.getVersion(p);
-                            return true;
-                        }
-                    }
-                } else {
-                    noPerm(p);
-                    return true;
-                }
-            }
             if (c.equalsIgnoreCase("sl")) {
                 if (p.hasPermission("BuildFixes.addstencils")
                         && getConf(p).stenGen()) {
@@ -228,6 +201,67 @@ public class Commands implements CommandExecutor {
                 } else {
                     noPerm(p);
                     return true;
+                }
+            }
+            if (c.equalsIgnoreCase("bf")) {
+                if (a.length == 0) {
+                    if (cs.hasPermission("BuildFixes.bfinfo")) {
+                        BFMethods.bfInfo(p);
+                        return true;
+                    }
+                } else {
+                    if (a.length == 1) {
+                        if (cs.hasPermission("BuildFixes.bfinfo")) {
+                            if (a[0].equalsIgnoreCase("worlds")) {
+                                BFMethods.listWorlds(p);
+                                return true;
+                            }
+                            if (a[0].equalsIgnoreCase("version")) {
+                                BFMethods.getVersion(p);
+                                return true;
+                            }
+                        } else {
+                            noPerm(p);
+                            return true;
+                        }
+                    }
+                    if (a.length == 2) {
+                        if (a[0].equalsIgnoreCase("reload")) {
+                            if (cs.hasPermission("BuildFixes.reload")) {
+                                p.sendMessage(prim + "Reloading...");
+                                BFMethods.reload(a);
+                                p.sendMessage(prim + "Reload complete!");
+                                return true;
+                            } else {
+                                noPerm(p);
+                                return true;
+                            }
+                        } else {
+                            noPerm(p);
+                            return true;
+                        }
+                    }
+                    if (a.length >= 3) {
+                        if (a[0].equalsIgnoreCase("np")) {
+                            if (cs.hasPermission("BuildFixes.npEdit")) {
+                                if (a[1].equalsIgnoreCase("add")) {
+                                    if (isInt(a[2])) {
+                                        //BFMethods.npAdd(p, a);
+                                        return true;
+                                    } else {
+                                        //p.sendMessage(ter + a[2] + " is not an integer!");
+                                        return true;
+                                    }
+                                }
+                                if (a[1].equalsIgnoreCase("remove")) {
+
+                                }
+                            } else {
+                                //noPerm(p);
+                                //return true;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -261,5 +295,4 @@ public class Commands implements CommandExecutor {
         }
         return i;
     }
-
 }

@@ -1,21 +1,17 @@
 package me.dags.BuildFixes.Commands;
 
-import static me.dags.BuildFixes.BuildFixes.prim;
-import static me.dags.BuildFixes.BuildFixes.scd;
-import static me.dags.BuildFixes.BuildFixes.ter;
-
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Arrays;
-
 import me.dags.BuildFixes.BuildFixes;
-
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.ChatPaginator;
 import org.bukkit.util.ChatPaginator.ChatPage;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import static me.dags.BuildFixes.BuildFixes.*;
 
 /**
  * @author dags_ <dags@dags.me>
