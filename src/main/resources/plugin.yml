@@ -60,6 +60,7 @@ permissions:
       BuildFixes.slabs: true
       BuildFixes.voxelviewer: true
       BuildFixes.addstencils: true
+      BuildFixes.stencillist: true
       BuildFixes.schlist: true
       BuildFixes.heads: true
       BuildFixes.armor: true
