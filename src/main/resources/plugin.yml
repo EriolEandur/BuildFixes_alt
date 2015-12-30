@@ -34,6 +34,11 @@ commands:
       usage: /sl [create <name>], [add <path/to/stencil>...], [save]
       permission: BuildFixes.addstencils
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+   random:
+      description: Field randomiser command.
+      usage: /random [radius #|range # #|probs [#] |material [names]| help]
+      permission: BuildFixes.randomiser
+      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
 permissions:
   BuildFixes.builder:
     default: op
@@ -46,6 +51,7 @@ permissions:
       BuildFixes.logs: true
       BuildFixes.mushrooms: true
       BuildFixes.slabs: true
+      BuildFixes.randomiser: true
   BuildFixes.moderator:
     default: op
     children:
@@ -126,3 +132,6 @@ permissions:
   BuildFixes.eggInteract:
     description: Allow user to interact with Dragon Eggs.
     default: op
+  BuildFixes.randomiser:
+      description: Allow user to use wheat random command
+      default: true

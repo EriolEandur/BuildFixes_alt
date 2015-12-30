@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import static me.dags.BuildFixes.Commands.ListGenerator.stencilLists;
+import me.dags.BuildFixes.Commands.Randomiser;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -81,6 +82,7 @@ public class BuildFixes extends JavaPlugin {
         getCommand("schlist").setExecutor(new Commands());
         getCommand("sl").setExecutor(new Commands());
         getCommand("bf").setExecutor(new Commands());
+        getCommand("random").setExecutor(new Randomiser());
     }
 
     private void findWorlds() {
