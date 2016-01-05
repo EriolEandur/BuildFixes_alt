@@ -133,5 +133,5 @@ permissions:
     description: Allow user to interact with Dragon Eggs.
     default: op
   BuildFixes.randomiser:
-      description: Allow user to use wheat random command
-      default: true
+    description: Allow user to use wheat random command
+    default: op

@@ -43,12 +43,16 @@ public class Randomiser implements CommandExecutor {
                 else if(args[0].equalsIgnoreCase("radius")) {
                     if(!checkArgs(cs, args,2)) return true;
                     playerConfig.setRadius(getInteger(cs, args[1]));
+                    sendRadiusSetMessage(cs);
+                    sendInfoMessage(cs,playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("range")) {
                     if(!checkArgs(cs, args,3)) return true;
                     playerConfig.setDataValueRange(getInteger(cs, args[1]),
                                                    getInteger(cs, args[2]));
+                    sendRangeSetMessage(cs);
+                    sendInfoMessage(cs,playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("prob")) {
@@ -58,6 +62,8 @@ public class Randomiser implements CommandExecutor {
                         newProbs[i-1] = getInteger(cs, args[i]);
                     }
                     playerConfig.setProbs(newProbs);
+                    sendProbsSetMessage(cs);
+                    sendInfoMessage(cs,playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("material")) {
@@ -67,25 +73,16 @@ public class Randomiser implements CommandExecutor {
                         materials[i-1] = args[i];
                     }
                     playerConfig.setMaterials(materials);
+                    sendMaterialsSetMessage(cs);
+                    sendInfoMessage(cs,playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("show")) {
-                    cs.sendMessage("randomiser tool configuration:");
-                    cs.sendMessage("Radius: "+playerConfig.getRadius());
-                    cs.sendMessage("Material: "+playerConfig.getMaterials());
-                    cs.sendMessage("DataValueRange: "+playerConfig.getMinValue()+" "
-                                                     +playerConfig.getMaxValue());
-                    cs.sendMessage("Probabilities: "+playerConfig.getProbs());
+                    sendInfoMessage(cs, playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("help")) {
-                    cs.sendMessage("Tool for randomising data values:");
-                    cs.sendMessage("- Randomise your surroundings: /random");
-                    cs.sendMessage("- Set affected radius:     /random radius <radius>");
-                    cs.sendMessage("- Set placed data values: /random range <min> <max>");
-                    cs.sendMessage("- Set affected materials:  /random materials <name>,[name]...");
-                    cs.sendMessage("- Set probabillities:         /random probs <prob>, [prob]...");
-                    cs.sendMessage("- Show configuration:      /random show");
+                    sendHelpMessage(cs);
                     return true;
                 }
                else {
@@ -155,5 +152,41 @@ public class Randomiser implements CommandExecutor {
         cs.sendMessage("Invalid subcommand.");
     }
     
+    private void sendHelpMessage(CommandSender cs) {
+        cs.sendMessage("Tool for randomising data values:");
+        cs.sendMessage("- Randomise your surroundings: /random");
+        cs.sendMessage("- Set affected radius:     /random radius <radius>");
+        cs.sendMessage("- Set placed data values: /random range <min> <max>");
+        cs.sendMessage("- Set affected materials:  /random material <name>,[name]...");
+        cs.sendMessage("- Set probabilities:         /random prob <prob>, [prob]...");
+        cs.sendMessage("- Show configuration:      /random show");
+    }
+    
+    private void sendInfoMessage(CommandSender cs, RandomiserConfig playerConfig) {
+                    cs.sendMessage("randomiser tool configuration:");
+                    cs.sendMessage("Radius: "+playerConfig.getRadius());
+                    cs.sendMessage("Material: "+playerConfig.getMaterials());
+                    cs.sendMessage("DataValueRange: "+playerConfig.getMinValue()+" "
+                                                     +playerConfig.getMaxValue());
+                    cs.sendMessage("Probabilities: "+playerConfig.getProbs());
+    }
+    
+    private void sendRadiusSetMessage(CommandSender cs) {
+        cs.sendMessage("Radius set (max is 150).");
+    }
+
+    private void sendProbsSetMessage(CommandSender cs) {
+        cs.sendMessage("Probabilities set.");
+    }
+
+    private void sendRangeSetMessage(CommandSender cs) {
+        cs.sendMessage("Range of data value set.");
+    }
+
+    private void sendMaterialsSetMessage(CommandSender cs) {
+        cs.sendMessage("Materials set.");
+    }
+
+   
 
 }

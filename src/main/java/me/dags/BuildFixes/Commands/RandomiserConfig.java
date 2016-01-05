@@ -44,8 +44,9 @@ public class RandomiserConfig {
     }
     
     public void setMaterials(String[] names) {
+        materials.clear();
         for(String name : names) {
-            Material mat = Material.getMaterial(name);
+            Material mat = Material.getMaterial(name.toUpperCase());
             if(mat!=null) {
                 materials.add(mat);
             }
@@ -104,7 +105,7 @@ public class RandomiserConfig {
     }
    
     public byte randomDataValue() {
-        int rand = (int) Math.round(100*Math.random());
+        int rand = (int) Math.round(Math.floor(100*Math.random()));
         byte dataValue;
         int sum = 0;
         for(int i = 0; i<props.length ; i++) {
