@@ -36,9 +36,7 @@ commands:
       permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
    random:
       description: Field randomiser command.
-      usage: /random [radius #|range # #|probs [#] |material [names]| help]
-      permission: BuildFixes.randomiser
-      permission-message: Sorry, you don't have don't have permission to use that command or the argument is invalid.
+      usage: /random [radius #|range # #|probs [#] |material [names]| show | allow | deny | help]
 permissions:
   BuildFixes.builder:
     default: op
@@ -132,6 +130,15 @@ permissions:
   BuildFixes.eggInteract:
     description: Allow user to interact with Dragon Eggs.
     default: op
-  BuildFixes.randomiser:
-    description: Allow user to use wheat random command
+  BuildFixes.randomiser.*:
+    description: Allow access to all /random subcommands
+    default: op
+    children:
+      BuildFixes.randomiser.allowMaterials: true
+      BuildFixes.randomiser.user: true
+  BuildFixes.randomiser.allowMaterials:
+    description: Allows to change allowed material.
+    defaut: op
+  BuildFixes.randomiser.user:
+    description: Allows to use field randomiser
     default: op

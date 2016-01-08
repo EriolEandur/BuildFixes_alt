@@ -3,17 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.dags.BuildFixes.Commands;
+package me.dags.BuildFixes.Commands.randomiser;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import me.dags.BuildFixes.BuildFixes;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -23,6 +37,20 @@ public class Randomiser implements CommandExecutor {
 
     private final Map<OfflinePlayer, RandomiserConfig> configList = new HashMap<OfflinePlayer,RandomiserConfig>();
     
+    private final static Set<Material> allowedMaterials = new HashSet<Material>();
+    
+    private static File configFile;
+    
+    private static final String configPathAllowedMaterials = "allowed Materials";
+    
+    private final JavaPlugin buildFixes;
+    
+    public Randomiser(JavaPlugin buildFixes) {
+        configFile = new File(buildFixes.getDataFolder(), "randomiser.yml");
+        this.buildFixes = buildFixes;
+        loadAllowedMaterials();
+    }
+    
     public boolean onCommand(CommandSender cs, Command cmd, String c, String[] args) {
         if (!(cs instanceof Player)) {
             cs.sendMessage("This command can only be run by a player");
@@ -31,8 +59,28 @@ public class Randomiser implements CommandExecutor {
             Player p = (Player) cs;
             if (c.equalsIgnoreCase("random")) {
                 RandomiserConfig playerConfig =  getPlayerConfig(p);
-                if (!cs.hasPermission("BuildFixes.randomiser")) {
-                    cs.sendMessage("Sorry you don't have permission to use /random");
+                if(args.length>0 && (args[0].equalsIgnoreCase("allow") || args[0].equalsIgnoreCase("deny"))){
+                    if(!cs.hasPermission("BuildFixes.randomiser.allowMaterials")){
+                        sendNoPermissionErrorMessage(cs);
+                        return true;
+                    }
+                    else {
+                        if(args.length<2) {
+                            sendMissingArgumentErrorMessage(cs);
+                            return true;
+                        }
+                        else {
+                            for(int i = 1; i<args.length;i++) {
+                                setAllowed(args[i], args[0].equalsIgnoreCase("allow"));
+                            }
+                            sendMaterialsInfoMessage(cs);
+                            saveAllowedMaterials();
+                            return true;
+                        }
+                    }
+                }
+                if (!cs.hasPermission("BuildFixes.randomiser.user")) {
+                    sendNoPermissionErrorMessage(cs);
                     return true;
                 }
                 if(args.length<1) {
@@ -72,13 +120,21 @@ public class Randomiser implements CommandExecutor {
                     for(int i=1; i<args.length;i++) {
                         materials[i-1] = args[i];
                     }
-                    playerConfig.setMaterials(materials);
-                    sendMaterialsSetMessage(cs);
+                    if(playerConfig.setMaterials(materials)) {
+                        sendMaterialsSetMessage(cs);
+                    }
+                    else {
+                        sendMaterialsErrorMessage(cs);
+                    }
                     sendInfoMessage(cs,playerConfig);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("show")) {
                     sendInfoMessage(cs, playerConfig);
+                    return true;
+                }
+                else if(args[0].equalsIgnoreCase("showAllowed")) {
+                    sendMaterialsInfoMessage(cs);
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("help")) {
@@ -140,8 +196,65 @@ public class Randomiser implements CommandExecutor {
         return true;
     }
     
+    public static boolean isAllowed(Material mat) {
+        return allowedMaterials.contains(mat);
+    }
+    
+    private void setAllowed(String name, boolean allow) {
+        Material material = Material.matchMaterial(name);
+        if(material != null) {
+            if(allow) {
+                allowedMaterials.add(material);
+            }
+            else {
+                allowedMaterials.remove(material);
+            }
+        }
+    }
+    
+    public void saveAllowedMaterials() {
+        FileConfiguration config = new YamlConfiguration();
+        List<String> materialNames = new ArrayList<String>();
+        for(Material mat : allowedMaterials) {
+            materialNames.add(mat.name());
+        }
+        config.set(configPathAllowedMaterials, materialNames);
+        try {
+            config.save(configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(BuildFixes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public final void loadAllowedMaterials() {
+        FileConfiguration config = new YamlConfiguration();
+        try {
+            config.load(configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(BuildFixes.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        } catch (InvalidConfigurationException ex) {
+            Logger.getLogger(BuildFixes.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+        List<String> materialNames = config.getStringList(configPathAllowedMaterials);
+        for(String name : materialNames) {
+            Material material= Material.matchMaterial(name);
+            if(material!=null) {
+                allowedMaterials.add(material);
+            } 
+            else {
+                Logger.getLogger(BuildFixes.class.getName()).log(Level.WARNING,"Material not found.");
+            }
+        }
+    }
+    
     private void sendMissingArgumentErrorMessage(CommandSender cs) {
         cs.sendMessage("You're missing arguments for this command.");
+    }
+
+    private void sendNoPermissionErrorMessage(CommandSender cs) {
+        cs.sendMessage("Sorry you don't have permission.");
     }
 
     private void sendNotANumberErrorMessage(CommandSender cs) {
@@ -160,6 +273,9 @@ public class Randomiser implements CommandExecutor {
         cs.sendMessage("- Set affected materials:  /random material <name>,[name]...");
         cs.sendMessage("- Set probabilities:         /random prob <prob>, [prob]...");
         cs.sendMessage("- Show configuration:      /random show");
+        cs.sendMessage("- Show allowed materials: /random showAllowed");
+        cs.sendMessage("- Add allowed materials:   /random allow");
+        cs.sendMessage("- Remove allowed materials: /random deny");
     }
     
     private void sendInfoMessage(CommandSender cs, RandomiserConfig playerConfig) {
@@ -171,6 +287,14 @@ public class Randomiser implements CommandExecutor {
                     cs.sendMessage("Probabilities: "+playerConfig.getProbs());
     }
     
+    private void sendMaterialsInfoMessage(CommandSender cs) {
+        String matList = "";
+        for(Material material: allowedMaterials) {
+            matList = matList+material.name()+" ";
+        }
+        cs.sendMessage("Allowed materials: "+ matList);
+    }
+
     private void sendRadiusSetMessage(CommandSender cs) {
         cs.sendMessage("Radius set (max is 150).");
     }
@@ -185,6 +309,10 @@ public class Randomiser implements CommandExecutor {
 
     private void sendMaterialsSetMessage(CommandSender cs) {
         cs.sendMessage("Materials set.");
+    }
+
+    private void sendMaterialsErrorMessage(CommandSender cs) {
+        cs.sendMessage("Some Materials were not found or are not allowed to be ranomised.");
     }
 
    

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.dags.BuildFixes.Commands;
+package me.dags.BuildFixes.Commands.randomiser;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,14 +43,19 @@ public class RandomiserConfig {
         return newProps;
     }
     
-    public void setMaterials(String[] names) {
+    public boolean setMaterials(String[] names) {
+        boolean allAllowed = true;
         materials.clear();
         for(String name : names) {
-            Material mat = Material.getMaterial(name.toUpperCase());
-            if(mat!=null) {
+            Material mat = Material.matchMaterial(name.toUpperCase());
+            if(mat!=null && Randomiser.isAllowed(mat)) {
                 materials.add(mat);
             }
+            else {
+                allAllowed = false;
+            }
         }
+        return allAllowed;
     }
 
     public void setProbs(int[] newProbs) {
