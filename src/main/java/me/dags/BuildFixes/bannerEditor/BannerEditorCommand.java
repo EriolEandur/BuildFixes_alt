@@ -95,18 +95,18 @@ public class BannerEditorCommand implements CommandExecutor {
     
     private void sendHelpMessage(CommandSender cs) {
         cs.sendMessage("Tool for editing banners:");
-        cs.sendMessage("- Select edited pattern: /banner <patternId>");
-        cs.sendMessage("- Select change pattern mode:     /banner p");
-        cs.sendMessage("- Select change color mode:     /banner c");
-        cs.sendMessage("- Select add pattern mode:     /banner a");
-        cs.sendMessage("- Select show patterns mode:     /banner l");
+        cs.sendMessage("- Select edited pattern:          /banner <patternId>");
+        cs.sendMessage("- Select change pattern mode: /banner p(attern)");
+        cs.sendMessage("- Select change color mode:    /banner c(olor)");
+        cs.sendMessage("- Select add pattern mode:     /banner a(dd)");
+        cs.sendMessage("- Select list patterns mode:    /banner l(ist)");
     }
     
     private void sendInfoMessage(CommandSender cs, BannerEditorConfig playerConfig) {
                     cs.sendMessage("banner editor mode: ");
                     switch(playerConfig.getEditorMode()) {
                         case LIST:
-                            cs.sendMessage("   -> show patterns");
+                            cs.sendMessage("   -> list patterns");
                             break;
                         case PATTERN:
                             cs.sendMessage("   -> change pattern "+ playerConfig.getPatternId());

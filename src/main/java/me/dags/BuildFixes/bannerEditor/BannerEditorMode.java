@@ -24,7 +24,7 @@ public enum BannerEditorMode {
     
     public static BannerEditorMode getEditorMode(String name) {
         for(BannerEditorMode type: BannerEditorMode.values()) {
-            if(type.name.equalsIgnoreCase(name)) {
+            if(type.name.equalsIgnoreCase(name.substring(0, 1))) {
                 return type;
             }
         }
