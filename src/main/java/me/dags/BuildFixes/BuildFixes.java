@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import static me.dags.BuildFixes.Commands.ListGenerator.stencilLists;
-import me.dags.BuildFixes.Commands.randomiser.Randomiser;
+import me.dags.BuildFixes.bannerEditor.BannerEditorCommand;
+import me.dags.BuildFixes.bannerEditor.BannerEditorListener;
+import me.dags.BuildFixes.randomiser.Randomiser;
 
 /**
  * @author dags_ <dags@dags.me>
@@ -69,6 +71,8 @@ public class BuildFixes extends JavaPlugin {
                 .registerEvents(new BlockListener(), this);
         this.getServer().getPluginManager()
                 .registerEvents(new EnvironmentListener(), this);
+        this.getServer().getPluginManager()
+                .registerEvents(new BannerEditorListener(), this);
         if (bfMotd) {
             this.getServer().getPluginManager()
                     .registerEvents(new PingListener(), this);
@@ -83,6 +87,7 @@ public class BuildFixes extends JavaPlugin {
         getCommand("sl").setExecutor(new Commands());
         getCommand("bf").setExecutor(new Commands());
         getCommand("random").setExecutor(new Randomiser(this));
+        getCommand("banner").setExecutor(new BannerEditorCommand());
     }
 
     private void findWorlds() {

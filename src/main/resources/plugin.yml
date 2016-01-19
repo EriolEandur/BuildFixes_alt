@@ -37,6 +37,9 @@ commands:
    random:
       description: Field randomiser command.
       usage: /random [radius #|range # #|probs [#] |material [names]| show | allow | deny | help]
+   banner:
+      description: Edit banners command
+      usage: see /banner help
 permissions:
   BuildFixes.builder:
     default: op
@@ -141,4 +144,7 @@ permissions:
     defaut: op
   BuildFixes.randomiser.user:
     description: Allows to use field randomiser
+    default: op
+  BuildFixes.bannerEditor:
+    description: Allows to use banner editor
     default: op

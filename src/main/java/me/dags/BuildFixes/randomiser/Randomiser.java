@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.dags.BuildFixes.Commands.randomiser;
+package me.dags.BuildFixes.randomiser;
 
 import java.io.File;
 import java.io.IOException;
