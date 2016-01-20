@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import static me.dags.BuildFixes.Commands.ListGenerator.stencilLists;
 import me.dags.BuildFixes.bannerEditor.BannerEditorCommand;
 import me.dags.BuildFixes.bannerEditor.BannerEditorListener;
+import me.dags.BuildFixes.paintingEditor.PaintingEditorListener;
 import me.dags.BuildFixes.randomiser.Randomiser;
 
 /**
@@ -73,6 +74,8 @@ public class BuildFixes extends JavaPlugin {
                 .registerEvents(new EnvironmentListener(), this);
         this.getServer().getPluginManager()
                 .registerEvents(new BannerEditorListener(), this);
+        this.getServer().getPluginManager()
+                .registerEvents(new PaintingEditorListener(), this);
         if (bfMotd) {
             this.getServer().getPluginManager()
                     .registerEvents(new PingListener(), this);

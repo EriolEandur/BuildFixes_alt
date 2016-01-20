@@ -148,3 +148,7 @@ permissions:
   BuildFixes.bannerEditor:
     description: Allows to use banner editor
     default: op
+  BuildFixes.paintingEditor:
+    description: Allows to use painting editor
+    default: op
+      
