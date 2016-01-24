@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import static me.dags.BuildFixes.Commands.ListGenerator.stencilLists;
+import me.dags.BuildFixes.Commands.TppCommand;
 import me.dags.BuildFixes.bannerEditor.BannerEditorCommand;
 import me.dags.BuildFixes.bannerEditor.BannerEditorListener;
 import me.dags.BuildFixes.paintingEditor.PaintingEditorListener;
@@ -91,6 +92,7 @@ public class BuildFixes extends JavaPlugin {
         getCommand("bf").setExecutor(new Commands());
         getCommand("random").setExecutor(new Randomiser(this));
         getCommand("banner").setExecutor(new BannerEditorCommand());
+        getCommand("tpp").setExecutor(new TppCommand());
     }
 
     private void findWorlds() {

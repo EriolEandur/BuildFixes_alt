@@ -40,6 +40,9 @@ commands:
    banner:
       description: Edit banners command
       usage: see /banner help
+   tpp:
+      description: Replacement for Essentials /tp to enable dynamic teleport via vanilla /tp
+      usage: /tpp playername or /tpp playername targetPlayername or /tpp x y z or /tpp playername x y z
 permissions:
   BuildFixes.builder:
     default: op
@@ -151,4 +154,26 @@ permissions:
   BuildFixes.paintingEditor:
     description: Allows to use painting editor
     default: op
+  BuildFixes.tpp.*:
+    description: Access to all variants of /tpp command
+    default: op
+    children: 
+      BuildFixes.tpp.toplayer : true
+      BuildFixes.tpp.tokoord : true
+      BuildFixes.tpp.other : true
+  BuildFixes.tpp.other:
+    description: Allows to teleport other players
+    default: false
+    children: 
+      BuildFixes.tpp.other.toplayer: true
+  BuildFixes.tpp.other.toplayer:
+     description: Allows to teleport some player to another player
+     default: false
+  BuildFixes.tpp.toplayer:
+     description: Allows to teleport to another player
+     default: false
+  BuildFixes.tpp.tokoord:
+     description: Allows to teleport to koordinates
+     default: false
+     
       
