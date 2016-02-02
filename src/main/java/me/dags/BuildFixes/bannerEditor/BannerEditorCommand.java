@@ -43,11 +43,17 @@ public class BannerEditorCommand implements CommandExecutor {
                         sendHelpMessage(cs);
                         return true;
                     }
-                    int id = getInteger(cs, args[0]);
+                    int id = getInteger(args[0]);
                     if(id>-1) {
                         playerConfig.setPatternId(id);
                         sendInfoMessage(cs, playerConfig);
                         return true;
+                    }
+                    if(args.length>1) {
+                        id = getInteger(args[1]);
+                        if(id>-1) {
+                            playerConfig.setPatternId(id);
+                        }
                     }
                     BannerEditorMode editorMode = BannerEditorMode.getEditorMode(args[0]);
                     if(editorMode == null) {
@@ -75,7 +81,7 @@ public class BannerEditorCommand implements CommandExecutor {
         return newConfig;
     }
         
-    private int getInteger(CommandSender cs, String str) {
+    private int getInteger(String str) {
         try {
             return Integer.parseInt(str);
         }
@@ -96,10 +102,12 @@ public class BannerEditorCommand implements CommandExecutor {
     private void sendHelpMessage(CommandSender cs) {
         cs.sendMessage("Tool for editing banners:");
         cs.sendMessage("- Select edited pattern:          /banner <patternId>");
-        cs.sendMessage("- Select change pattern mode: /banner p(attern)");
-        cs.sendMessage("- Select change color mode:    /banner c(olor)");
-        cs.sendMessage("- Select add pattern mode:     /banner a(dd)");
-        cs.sendMessage("- Select list patterns mode:    /banner l(ist)");
+        cs.sendMessage("- Select change texture mode: /banner t");
+        cs.sendMessage("- Select change color mode:    /banner c");
+        cs.sendMessage("- Select add pattern mode:     /banner a");
+        cs.sendMessage("- Select remove pattern mode:     /banner r");
+        cs.sendMessage("- Select list patterns mode:    /banner l");
+        cs.sendMessage("- Select get banner mode:    /banner g");
     }
     
     private void sendInfoMessage(CommandSender cs, BannerEditorConfig playerConfig) {
@@ -108,8 +116,8 @@ public class BannerEditorCommand implements CommandExecutor {
                         case LIST:
                             cs.sendMessage("   -> list patterns");
                             break;
-                        case PATTERN:
-                            cs.sendMessage("   -> change pattern "+ playerConfig.getPatternId());
+                        case TEXTURE:
+                            cs.sendMessage("   -> change texture "+ playerConfig.getPatternId());
                             break;
                         case COLOR:
                             cs.sendMessage("   -> change color of pattern "+ playerConfig.getPatternId());
@@ -119,6 +127,9 @@ public class BannerEditorCommand implements CommandExecutor {
                             break;
                         case REMOVE:
                             cs.sendMessage("   -> remove pattern "+ playerConfig.getPatternId());
+                            break;
+                        case GET:
+                            cs.sendMessage("   -> get banner ");
                             break;
                     }
     }

@@ -11,10 +11,11 @@ package me.dags.BuildFixes.bannerEditor;
  */
 public enum BannerEditorMode {
     LIST    ("l"),
-    PATTERN ("p"),
+    TEXTURE ("t"),
     COLOR   ("c"),
     ADD     ("a"),
-    REMOVE  ("r");
+    REMOVE  ("r"),
+    GET     ("g");
     
     private final String name;
 

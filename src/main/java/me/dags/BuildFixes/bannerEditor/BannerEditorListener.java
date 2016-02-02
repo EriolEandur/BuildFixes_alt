@@ -6,6 +6,7 @@
 package me.dags.BuildFixes.bannerEditor;
 
 import java.util.List;
+import java.util.logging.Logger;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.Banner;
@@ -17,6 +18,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
 
 /**
  *
@@ -42,7 +45,7 @@ public class BannerEditorListener implements Listener {
                     case LIST:
                         sendBannerInfoMessage(player,banner);
                         break;
-                    case PATTERN:
+                    case TEXTURE:
                         if(patternId>0 
                                 && patternId<=banner.numberOfPatterns()) {
                             banner.setPattern(patternId-1,
@@ -82,13 +85,32 @@ public class BannerEditorListener implements Listener {
                         break;
                     case REMOVE:
                         if(patternId>0 
-                                && patternId<banner.numberOfPatterns()) {
-                            banner.removePattern(patternId-1);
+                                && patternId<=banner.numberOfPatterns()) {
+                            Pattern pat = banner.removePattern(patternId-1);
+                            banner.update(true, false);
+                        }
+                        else if(patternId==0){
+                            sendBaseNoPattern(player);
                         }
                         else {
                             sendInvalidPatternId(player, patternId);
                         }
                         break;
+                    case GET:
+                        ItemStack item = new ItemStack(Material.BANNER);
+                        BannerMeta meta = (BannerMeta) item.getItemMeta();
+                        meta.setBaseColor(banner.getBaseColor());
+                        for(Pattern pattern: banner.getPatterns()) {
+                            meta.addPattern(pattern);
+                        }
+                        item.setItemMeta(meta);
+                        int amount = item.getMaxStackSize();
+                        item.setAmount(amount);
+Logger.getGlobal().info(banner.toString());
+Logger.getGlobal().info(banner.getData().toString());
+//Logger.getGlobal().info(itemStack.toString());
+                        player.getInventory().addItem(item);
+                        sendGotBanner(player, amount);
                 }
                 event.setCancelled(true);
             }
@@ -140,6 +162,14 @@ public class BannerEditorListener implements Listener {
     
     private void sendNoPattern(Player player) {
         player.sendMessage("You can change the color of the base banner only.");
+    }
+
+    private void sendBaseNoPattern(Player player) {
+        player.sendMessage("The banner base has no texture to remove.");
+    }
+
+    private void sendGotBanner(Player player, int amount) {
+        player.sendMessage("Given "+amount+" banners to "+player.getName()+".");
     }
 
 }
