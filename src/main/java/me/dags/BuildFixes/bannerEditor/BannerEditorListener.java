@@ -106,9 +106,6 @@ public class BannerEditorListener implements Listener {
                         item.setItemMeta(meta);
                         int amount = item.getMaxStackSize();
                         item.setAmount(amount);
-Logger.getGlobal().info(banner.toString());
-Logger.getGlobal().info(banner.getData().toString());
-//Logger.getGlobal().info(itemStack.toString());
                         player.getInventory().addItem(item);
                         sendGotBanner(player, amount);
                 }

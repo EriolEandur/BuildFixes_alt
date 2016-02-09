@@ -40,6 +40,12 @@ commands:
    banner:
       description: Edit banners command
       usage: see /banner help
+   armor:
+      description: Edit armor stands command
+      usage: see /armor help
+   rp:
+      description: Switch resource packs by command
+      usage: /rp <Gondor|Eriador|Lothlorien|Rohan>
 permissions:
   BuildFixes.builder:
     default: op
@@ -150,5 +156,11 @@ permissions:
     default: op
   BuildFixes.paintingEditor:
     description: Allows to use painting editor
+    default: op
+  BuildFixes.resourcePack:
+    description: Allows to choose RPs by command
+    default: op
+  BuildFixes.armorStandEditor:
+    description: Allows to use armor stand editor
     default: op
       
