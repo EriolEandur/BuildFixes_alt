@@ -216,15 +216,15 @@ public class ArmorStandEditorListener implements Listener {
                 player.sendMessage("Switched armor stand base plate.");
                 break;
             case MARKER:
-                //armorStand.setMarker(!armorStand.isMarker());
-                player.sendMessage("comming soon...");
+                armorStand.setMarker(!armorStand.isMarker());
+                player.sendMessage("Switch ");
                 break;
             case ARMS:
                 armorStand.setArms(!armorStand.hasArms());
                 player.sendMessage("Switched armor stand arms.");
                 break;
             case PASTE:
-                player.sendMessage("Error - this should not happen");
+                //nothing to do here
                 break;
             case COPY:
                 config.copyArmorStand(armorStand);

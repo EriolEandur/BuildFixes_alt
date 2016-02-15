@@ -5,12 +5,16 @@
  */
 package me.dags.BuildFixes.armorStandEditor;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
 /**
@@ -65,6 +69,62 @@ public class ArmorStandEditorCommand implements CommandExecutor {
                         playerConfig.placeArmorStand(p.getLocation(),true);
                         return true;
                     }
+                    if(args[0].equalsIgnoreCase("files")) {
+                        int page=1;
+                        boolean numberFound = false;
+                        if(args.length>1) {
+                            try {
+                                if(args.length>2) {
+                                    page = Integer.parseInt(args[2]);
+                                }
+                                else {
+                                    page = Integer.parseInt(args[1]);
+                                    numberFound = true;
+                                }
+                            } catch (NumberFormatException ex) {}
+                        }
+                        if((args.length>1 && !numberFound) || args.length==3) {
+                            showFiles(cs, playerConfig, args[1],page);
+                        }
+                        else {
+                            showFiles(cs, playerConfig, "",page);
+                        }
+                        return true;
+                    }
+                    if(args[0].equalsIgnoreCase("delete")) {
+                        if(args.length>1) {
+                            if(playerConfig.deleteFile(args[1])) {
+                                sendFileDeletedMessage(cs);
+                            }
+                            else {
+                                sendDeleteErrorMessage(cs);
+                            }
+                        }
+                        return true;
+                    }
+                    if(args[0].equalsIgnoreCase("save")) {
+                        if(args.length>2) {
+                            String description = args[2];
+                            for(int i = 3;i<args.length;i++) {
+                                description = description + " " + args[i];
+                            }
+                            try {
+                                if(playerConfig.saveArmorStand(args[1],description)) {
+                                    sendSavedMessage(cs);
+                                }
+                                else {
+                                    sendExistsMessage(cs);
+                                }
+                            } catch (IOException ex) {
+                                sendIOErrorMessage(cs);
+                            }
+                        }
+                        else
+                        {
+                            sendNotEnoughArgumentsMessage(cs);
+                        }
+                        return true;
+                    }
                     if(args[0].equalsIgnoreCase("clear")) {
                         playerConfig.clearCopiedArmorStand();
                         sendCopiedArmorStandClearedMessage(cs);
@@ -84,6 +144,20 @@ public class ArmorStandEditorCommand implements CommandExecutor {
                         sendInvalidSubcommand(cs);
                     }
                     else {
+                        if(editorMode.equals(ArmorStandEditorMode.PASTE) && args.length>1) {
+                            try {
+                                if(playerConfig.loadArmorStand(args[1])) {
+                                    sendLoadedMessage(cs);
+                                }
+                                else {
+                                    sendFileNotFoundMessage(cs);
+                                }
+                            } catch (IOException ex) {
+                                sendIOErrorMessage(cs);
+                            } catch (InvalidConfigurationException ex) {
+                                sendIOErrorMessage(cs);
+                            }
+                        }
                         playerConfig.setEditorMode(editorMode);
                         if(args.length>1) {
                             ArmorStandPart part = ArmorStandPart.getPart(args[1]);
@@ -111,6 +185,47 @@ public class ArmorStandEditorCommand implements CommandExecutor {
         return newConfig;
     }
         
+    private void showFiles(CommandSender cs, ArmorStandEditorConfig playerConfig, String folder, int page) {
+        File[] files = playerConfig.getFiles(folder);
+        int maxPage=(files.length-1)/10+1;
+        if(maxPage<1) {
+            maxPage = 1;
+        }
+        if(page>maxPage) {
+            page = maxPage;
+        }
+        sendHeaderMessage(cs, folder, page, maxPage);
+        if(!folder.equals("")) {
+            sendClickableMessage((Player) cs, "   ..","/armor files");
+        }
+        for(int i = (page-1)*10; i<files.length && i<(page-1)*10+10;i++) {
+                //backward order: int i = files.length-1-(page-1)*10; i >= 0 && i > files.length-1-(page-1)*10-10; i--) {
+            sendEntryMessage(cs, folder, files[i], playerConfig.getDescription(files[i]));
+        }
+    }
+    
+    private void sendHeaderMessage(CommandSender cs, String folder, int page, int maxPage) {
+        cs.sendMessage("Saved armor stand files "
+                       +(!folder.equals("")?"in folder "+ folder+" ":"")+"[page " +page+"/"+maxPage+"]");
+    }
+
+    private void sendEntryMessage(CommandSender cs, String folder, File file, String description) {
+        String name;
+        String command;
+        if(file.isDirectory()) {
+            name = file.getName();
+            command = "/armor files "+folder+"/"+name;
+        }
+        else {
+            name = file.getName().substring(0, file.getName().lastIndexOf('.'));
+            command = "/armor p "+folder+"/"+name;
+        }
+        while(name.length()<15) {
+            name = name.concat(" ");
+        }
+        sendClickableMessage((Player)cs, "   "+name+description, command);
+    }
+    
     private void sendNoPermissionErrorMessage(CommandSender cs) {
         cs.sendMessage("Sorry, you don't have permission.");
     }
@@ -121,6 +236,7 @@ public class ArmorStandEditorCommand implements CommandExecutor {
     
     private void sendHelpMessage(CommandSender cs) {
         cs.sendMessage("Tool for editing armor stands:");
+        cs.sendMessage("- Show the current mode:    /armor");
         cs.sendMessage("- Show help about parts:    /armor parts");
         cs.sendMessage("- Select x-movement mode:   /armor mx");
         cs.sendMessage("- Select y-movement mode:   /armor my");
@@ -136,13 +252,15 @@ public class ArmorStandEditorCommand implements CommandExecutor {
         cs.sendMessage("- Switch marker mode:       /armor ma");
         cs.sendMessage("- Switch arms mode:         /armor a");
         cs.sendMessage("- Switch base plate mode:   /armor b");
-        cs.sendMessage("- Select place mode:        /armor p");
+        cs.sendMessage("- Select paste mode:        /armor p [filename]");
         cs.sendMessage("- Select copy mode:         /armor c");
         cs.sendMessage("- Increase rot/move step:   /armor +");
         cs.sendMessage("- Decrease rot/move step:   /armor -");
         cs.sendMessage("- Stet rot/move step:       /armor #");
         cs.sendMessage("- Place copied armor stand: /armor place");
         cs.sendMessage("- Clear copied armor stand: /armor clear");
+        cs.sendMessage("- Save copied armor stand:  /armor save <filename> <description>");
+        cs.sendMessage("- List saved armor stand:   /armor files [folder]");
     }
     
     private void sendInfoMessage(CommandSender cs, ArmorStandEditorConfig playerConfig) {
@@ -219,5 +337,45 @@ public class ArmorStandEditorCommand implements CommandExecutor {
         cs.sendMessage("    -> rl  right leg");
         cs.sendMessage("    -> b   body");
     }
-    
+
+    private void sendNotEnoughArgumentsMessage(CommandSender cs) {
+        cs.sendMessage("Not enough arguments: /armor save <filename> <description>");
+    }
+
+    private void sendSavedMessage(CommandSender cs) {
+        cs.sendMessage("Armor stand saved.");
+    }
+
+    private void sendFileNotFoundMessage(CommandSender cs) {
+        cs.sendMessage("File not found.");
+    }
+
+    private void sendLoadedMessage(CommandSender cs) {
+        cs.sendMessage("Armor stand loaded.");
+    }
+
+    private static void sendClickableMessage(Player sender, String message, String onClickCommand) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tellraw "+ sender.getName()+" "
+                    +"{ text:\""+message+"\", "
+                      +"clickEvent:{ action:run_command,"
+                                   + "value:\""+ onClickCommand +"\"}}");
+    }
+
+    private void sendExistsMessage(CommandSender cs) {
+        cs.sendMessage("File already exists. Delete first.");
+    }
+
+    private void sendIOErrorMessage(CommandSender cs) {
+        cs.sendMessage("IO error. Nothing was saved.");
+    }
+
+    private void sendFileDeletedMessage(CommandSender cs) {
+        cs.sendMessage("File deleted.");
+    }
+
+    private void sendDeleteErrorMessage(CommandSender cs) {
+        cs.sendMessage("File not found or directory not empty.");
+    }
+        
+
 }

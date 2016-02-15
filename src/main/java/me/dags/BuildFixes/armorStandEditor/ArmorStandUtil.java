@@ -21,6 +21,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -78,24 +79,23 @@ public class ArmorStandUtil {
         else {
             ArmorStand armor = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
             if(armor != null) {
-                Map<String,Object> pose = (Map<String,Object>)data.get("pose");
+                Map<String,Object> pose = getMap(data,"pose"); //(Map<String,Object>)data.get("pose");
                 if(pose!=null) {
-                    armor.setBodyPose(deserializeEulerAngle((Map<String,Object>)pose.get("body")));
-                    armor.setLeftLegPose(deserializeEulerAngle((Map<String,Object>)pose.get("leftLeg")));
-                    armor.setRightLegPose(deserializeEulerAngle((Map<String,Object>)pose.get("rightLeg")));
-                    armor.setLeftArmPose(deserializeEulerAngle((Map<String,Object>)pose.get("leftArm")));
-                    armor.setRightArmPose(deserializeEulerAngle((Map<String,Object>)pose.get("rightArm")));
-                    armor.setHeadPose(deserializeEulerAngle((Map<String,Object>)pose.get("head")));
+                    armor.setBodyPose(deserializeEulerAngle(getMap(pose,"body")));//(Map<String,Object>)pose.get("body")));
+                    armor.setLeftLegPose(deserializeEulerAngle(getMap(pose,"leftLeg")));//(Map<String,Object>)pose.get("leftLeg")));
+                    armor.setRightLegPose(deserializeEulerAngle(getMap(pose,"rightLeg")));//(Map<String,Object>)pose.get("rightLeg")));
+                    armor.setLeftArmPose(deserializeEulerAngle(getMap(pose,"leftArm")));//(Map<String,Object>)pose.get("leftArm")));
+                    armor.setRightArmPose(deserializeEulerAngle(getMap(pose,"rightArm")));//(Map<String,Object>)pose.get("rightArm")));
+                    armor.setHeadPose(deserializeEulerAngle(getMap(pose,"head")));//(Map<String,Object>)pose.get("head")));
                 }
 
-                Map<String,Object> items = (Map<String,Object>) data.get("items");
+                Map<String,Object> items = getMap(data,"items");//(Map<String,Object>) data.get("items");
                 if(items!=null) {
-                    armor.setBoots(ItemStack.deserialize((Map<String,Object>)items.get("boots")));
-                    armor.setLeggings(ItemStack.deserialize((Map<String,Object>)items.get("leggins")));
-                    armor.setChestplate(ItemStack.deserialize((Map<String,Object>)items.get("chestplate")));
-                    armor.setHelmet(ItemStack.deserialize((Map<String,Object>)items.get("helmet")));
-                    armor.setItemInHand(ItemStack.deserialize((Map<String,Object>)items.get("hand")));
-                    armor.setBoots(ItemStack.deserialize((Map<String,Object>)items.get("boots")));
+                    armor.setBoots(ItemStack.deserialize(getMap(items,"boots")));//(Map<String,Object>)items.get("boots")));
+                    armor.setLeggings(ItemStack.deserialize(getMap(items,"leggins")));//(Map<String,Object>)items.get("leggins")));
+                    armor.setChestplate(ItemStack.deserialize(getMap(items,"chestplate")));//(Map<String,Object>)items.get("chestplate")));
+                    armor.setHelmet(ItemStack.deserialize(getMap(items,"helmet")));//(Map<String,Object>)items.get("helmet")));
+                    armor.setItemInHand(ItemStack.deserialize(getMap(items,"hand")));//(Map<String,Object>)items.get("hand")));
                 }
                 
                 try {
@@ -151,4 +151,13 @@ public class ArmorStandUtil {
                               (Double) data.get("z"));
     }
     
+    private static Map<String,Object> getMap(Map<String,Object> data, String key) {
+        Object value = data.get(key);
+        if(value instanceof ConfigurationSection) {
+            return ((ConfigurationSection)value).getValues(true);
+        }
+        else {
+            return (Map<String,Object>) value;
+        }
+    }
 }
